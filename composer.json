@@ -1,0 +1,20 @@
+{
+  "name": "grupo-elgorado/tcc",
+  "description": "Site de catalogo para uma marmoraria",
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Luigi de Souza",
+      "email": "luigi.de.sou@gmail.com"
+    },
+    {
+      "name": "Gustavo de Paula Bonjardim",
+      "email": "gustavoifesserra@gmail.com"
+    }
+  ],
+  "require": {}
+}

@@ -1,0 +1,9 @@
+# Composer dependencies
+/vendor/
+
+# VS Code settings
+.vscode/
+
+# OS/system files
+Thumbs.db
+.DS_Store

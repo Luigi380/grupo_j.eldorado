@@ -10,19 +10,45 @@
             $this->email = $email;
             $this->password = password_hash($password, PASSWORD_DEFAULT);
         }
+   
+        public function verifyPassword(string $passwordEntered): bool {
+            return password_verify($passwordEntered, $this->password);
+        }
 
-        public function getEmail(){
+        // Save user to JSON file
+        public function saveData(string $filePath): bool {
+            // Ensure file exists
+            if (!file_exists($filePath)) {
+                file_put_contents($filePath, json_encode([]));
+            }
+
+            $users = json_decode(file_get_contents($filePath), true);
+            
+            // Check if email already exists
+            foreach ($users as $user) {
+                if ($user['email'] === $this->email) {
+                    return false;
+                }
+            }
+
+            // Add new user
+            $users[] = [
+                'email' => $this->email,
+                'password' => $this->password
+            ];
+
+            // Save to file
+            return file_put_contents($filePath, json_encode($users, JSON_PRETTY_PRINT)) !== false;
+        }
+
+        /* public function getEmail(){
             return $this->email;
         }
 
         public function setEmail(string $email){
             $this->email = $email;
             return $this;
-        }
-
-        public function verifyPassword(string $passwordEntered): bool {
-            return password_verify($passwordEntered, $this->password);
-        }
+        } */
 
         /* public function getPassword(){
             return $this->password;

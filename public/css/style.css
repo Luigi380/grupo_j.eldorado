@@ -4,24 +4,350 @@
   box-sizing: border-box;
 }
 
+body{
+  font-family: Arial, Helvetica, sans-serif;
+  background-color:#fff ;
+  color: #333;
+
+}
+
+/* HEADER*/
+
 header {
   display: flex;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  padding: 0 5%;
+}
+
+header nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+header nav:last-of-type {
+  justify-content: flex-end;
+}
+header .logo{
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+
+}
+
+header ul {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  align-items: center;
+  height: 100%;
 }
 
 header ul li {
-  display: inline-block;
+  display: flex;
   position: relative;
-  padding-left: 40px;
-  padding-top: 80px;
+  align-items: center;
+  height: 100%;
+  
 }
 
-header ul li::before {
-  position: absolute;
-  left: 20px;
-  font-weight: normal;
-  color: #000;
+header ul li {
+  position: relative; /* Remova os paddings pra ter melhor alinhamento */
+  padding: 0;
 }
+
+header nav ul li a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  transition: color 0.2s ease, font-weight 0.2s ease; /* uma leva animação na mudança de cor da lista */
+  
+}
+
+header nav ul li a:hover {
+  font-weight: bold;
+  color: rgb(255, 217, 0);
+}
+
+
 
 header img {
   width: 161px;
+  margin-left: 2%;
 }
+
+/* CARROSSEL DE IMAGENS*/
+
+.carrossel_placeholder{
+  width: 100%;
+  height: 400px;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* SEÇÃO DE MATERIAIS*/
+
+.section_materials  {
+  padding: 80px 0;
+  
+
+}
+
+.section_materials .content_materials {
+  flex: 1;
+  margin-top: 40px; /* empurra o texto um pouco para baixo em relação à imagem */
+  padding-left: 40px; /* aumenta o espaço à esquerda para sair da borda */
+  position: relative; /* para permitir transform e z-index */
+}
+
+
+.section_materials .container_materials {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: flex-start; /* Alinha topo */
+  gap: 60px;
+  flex-direction: row-reverse; /* Imagem à direita, texto à esquerda */
+}
+
+.section_materials .materials_images img {
+  width: 100%;
+  max-width: 420px; /* imagem um pouco maior visualmente */
+  height: auto;
+  border-radius: 8px;
+  transform: translateY(-10px) translateX(10px); /* desloca a imagem um pouco para frente */
+  z-index: 2; /* traz a imagem para frente */
+  position: relative;
+}
+
+.section_materials .content_materials {
+  flex: 1;
+  margin-top: 20px; /* Ajuste para subir o texto */
+}
+
+.section_materials .content_materials h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+  margin-top: 0; /* Garante que não desça */
+}
+
+.section_materials .content_materials p {
+  margin-bottom: 25px;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+  margin-top: 0; /* Garante que não desça */
+}
+
+
+.section_materials .btn{
+  background-color: #ffc800;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+
+}
+
+.section_materials .btn:hover{
+  background-color: #ffea4f;
+}
+
+/* SEÇÃO ULTIMOS TRABALHOS*/
+
+.section_projects{
+  padding: 80px 0;
+  
+
+}
+
+.section_projects .container_projects{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 30px; /* diminui gap para aproximar texto e imagem */
+  flex-direction: row-reverse; /* Inverte a ordem para texto à esquerda, imagem à direita */
+
+}
+.section_projects .projects_images img{
+  width: 100%;
+  max-width: 800px; /* iguala o tamanho à imagem marmore1 */
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.section_projects .project_content h2{
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+
+}
+.section_projects .project_content p{
+  margin-bottom: 25px;
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.6;
+}
+.section_projects .btn{
+  background-color: #ffc800;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+
+}
+.section_projects .btn:hover{
+  background-color: #ffea4f;
+}
+
+/* SEÇÃO PADRÃO DE QUALIDADE (semelhante às outras) */
+.section_quality{
+  padding: 80px 0;
+}
+
+.section_quality .container_quality{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+}
+
+.section_quality .quality_content{
+  flex: 1;
+}
+
+.section_quality .quality_images img{
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* SEÇÃO SOBRE NÓS (semelhante às outras) */
+.section_about{
+  padding: 80px 0;
+}
+
+.section_about .container_about{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  flex-direction: row-reverse; /* inverter: imagem à esquerda, texto à direita */
+}
+
+.section_about .about_content{
+  flex: 1;
+}
+
+.section_about .about_images img{
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  border-radius: 8px;
+}
+
+
+/* BARRA PRETA - LOGO */
+
+
+
+/* RESPOSIVIDADE */
+
+/* FOOTER */
+.site-footer{
+  background-color: #000;
+  color: #fff;
+  padding: 20px 0;
+}
+.site-footer .container_footer{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+.site-footer p{
+  margin: 4px 0;
+}
+.site-footer a{
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.9;
+}
+.site-footer a:hover{
+  opacity: 1;
+  text-decoration: underline;
+}
+
+@media (max-width: 768px){
+  header{
+    flex-direction: column;
+    height: auto;
+    gap: 12px;
+    padding: 15px;
+  }
+
+  header .logo{
+    height: 50px;
+  }
+
+  .carrossel_placeholder{
+    height: 250px;
+  }
+
+  .section_materials .container_materials,
+  .section_projects .container_projects{
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .section_quality .container_quality,
+  .section_about .container_about{
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .section_materials .materials_images img,
+  .section_projects .project_content img{
+    max-width: 100%;
+    
+  }
+  .section_quality .quality_images img,
+  .section_about .about_images img{
+    max-width: 100%;
+  }
+  /* reduz a logo na barra preta em telas pequenas */
+  .images_marmoraria img{
+    max-width: 180px;
+  }
+  .section_materials .content_materials h2,
+  .section_projects .project_content h2{
+    font-size: 2rem;
+  }
+
+
+}
+
+
+
+

@@ -1,0 +1,98 @@
+/* Estilos complementares ao Bootstrap */
+/* Aplicar o fundo cinza claro somente na seção, não globalmente */
+.section_admin {
+  background-color: #b5b5b5; /* cinza claro conforme solicitado */
+}
+
+.admin_container {
+  max-width: 400px;
+  width: 100%;
+}
+
+/* Centraliza o container na tela */
+.section_admin{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.admin_container{
+  width: 100%;
+  max-width: 420px;
+}
+
+/* Estilo do formulário (card) */
+.admin_form{
+  background: rgba(255,255,255,0.95);
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.logo{ /* wrapper da imagem */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-img{
+  width: 140px;
+  max-width: 50%;
+  height: auto;
+  display: block;
+}
+
+.logo {
+  font-size: 3rem;
+  letter-spacing: 2px;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  border: none;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+  transform: translateY(-2px);
+}
+
+.form-control {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+/* Garante que inputs ocupem toda a largura disponível dentro do card */
+.admin_form .form-control{
+  width: 100%;
+}
+
+.checkbox{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.form-control:focus {
+  border-color: #ffc107;
+  box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
+}
+
+/* Responsividade: logo menor em telas pequenas e ajuste do card */
+@media (max-width: 480px){
+  .logo-img{ width: 110px; }
+  .admin_form{ padding: 18px; }
+  .admin_container{ padding: 0 8px; }
+}
+
+@media (max-width: 360px){
+  .admin_form{ padding: 14px; }
+  .logo-img{ width: 92px; }
+}

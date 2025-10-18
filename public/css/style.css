@@ -11,6 +11,17 @@ body{
 
 }
 
+/* Rolagem suave */
+html{
+  scroll-behavior: smooth;
+}
+
+/* Se o header for transformado em fixed no futuro: cria um pequeno offset usando ancoras com padding */
+.section_about:target {
+  /* garante que o topo da seção não fique colado ao topo caso o header seja fixo */
+  scroll-margin-top: 20px;
+}
+
 /* HEADER*/
 
 header {

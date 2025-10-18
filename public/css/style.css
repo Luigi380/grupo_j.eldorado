@@ -28,7 +28,8 @@ header {
   display: flex;
   align-items: center;
   background-color: rgb(255, 255, 255);
-  padding: 0 5%;
+  padding: 12px 5%;
+  gap: 12px;
 }
 
 header nav {
@@ -49,7 +50,7 @@ header .logo{
 
 header ul {
   display: flex;
-  gap: 40px;
+  gap: 32px;
   list-style: none;
   align-items: center;
   height: 100%;
@@ -72,6 +73,7 @@ header nav ul li a {
   text-decoration: none;
   color: rgb(0, 0, 0);
   font-size: 1rem;
+  padding: 6px 8px; /* aumenta área clicável */
   transition: color 0.2s ease, font-weight 0.2s ease; /* uma leva animação na mudança de cor da lista */
   
 }
@@ -84,7 +86,9 @@ header nav ul li a:hover {
 
 
 header img {
-  width: 161px;
+  width: 160px;
+  max-width: 40%;
+  height: auto;
   margin-left: 2%;
 }
 
@@ -123,6 +127,16 @@ header img {
   align-items: flex-start; /* Alinha topo */
   gap: 60px;
   flex-direction: row-reverse; /* Imagem à direita, texto à esquerda */
+}
+/* Garante comportamento responsivo dos containers */
+.container_materials,
+.container_projects,
+.container_quality,
+.container_about{
+  box-sizing: border-box;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .section_materials .materials_images img {
@@ -274,6 +288,119 @@ header img {
   max-width: 420px;
   height: auto;
   border-radius: 8px;
+}
+
+/* Botões em telas pequenas ficam mais largos e centralizados */
+.btn{
+  display: inline-block;
+}
+
+@media (max-width: 1024px){
+  header ul{ gap: 20px; }
+  .section_materials .container_materials,
+  .section_projects .container_projects{ gap: 36px; }
+}
+
+@media (max-width: 768px){
+  /* já existia: reforça e ajusta */
+  header{
+    flex-direction: column;
+    height: auto;
+    gap: 8px;
+    padding: 12px 16px;
+    align-items: center;
+  }
+
+  header nav{ width: 100%; }
+  header nav ul{ justify-content: center; gap: 18px; flex-wrap: wrap; }
+
+  header img{ width: 140px; margin: 0; }
+
+  .carrossel_placeholder{ height: 220px; }
+
+  .section_materials .container_materials,
+  .section_projects .container_projects{
+    flex-direction: column;
+    gap: 28px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .section_materials .materials_images img,
+  .section_projects .projects_images img,
+  .section_about .about_images img,
+  .section_quality .quality_images img{
+    max-width: 90%;
+  }
+
+  .section_materials .content_materials,
+  .section_projects .project_content,
+  .section_about .about_content,
+  .section_quality .quality_content{
+    padding: 0 8px;
+  }
+
+  .btn{ width: 100%; max-width: 320px; margin: 0 auto; }
+
+  .section_materials .content_materials h2,
+  .section_projects .project_content h2,
+  .section_quality .quality_content h2,
+  .section_about .about_content h2{
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px){
+  header img{ width: 120px; }
+  header nav ul{ gap: 12px; }
+  .carrossel_placeholder{ height: 180px; }
+  .section_materials .content_materials h2,
+  .section_projects .project_content h2{ font-size: 1.6rem; }
+  .section_materials .content_materials p,
+  .section_projects .project_content p{ font-size: 0.95rem; }
+}
+
+/* Ajustes finais para preservar o visual original, mas bem adaptado ao celular */
+@media (max-width: 768px){
+  /* Tornar imagens mais neutras (remove deslocamentos e sombras que podem quebrar o flow) */
+  .section_materials .materials_images img,
+  .section_projects .projects_images img{
+    transform: none !important;
+    margin: 0 auto 12px auto;
+    display: block;
+  }
+
+  /* Em telas pequenas, mostre a imagem acima do texto para evitar quebra do layout
+     e manter a leitura natural — preserva a aparência original (mesmo conteúdo, só que empilhado).
+  */
+  .section_materials .materials_images{ order: 0; }
+  .section_materials .content_materials{ order: 1; }
+  .section_projects .projects_images{ order: 0; }
+  .section_projects .project_content{ order: 1; }
+  .section_about .about_images{ order: 0; }
+  .section_about .about_content{ order: 1; }
+
+  /* Reduz padding das seções para caber melhor em telas pequenas */
+  .section_materials,
+  .section_projects,
+  .section_quality,
+  .section_about{
+    padding: 40px 0;
+  }
+
+  /* Ajuste de tipografia para manter hierarquia sem consumir tanto espaço */
+  h2{ font-size: 1.6rem; }
+  p{ font-size: 0.98rem; }
+
+  /* Aumenta a área clicável dos links do header em touch */
+  header nav ul li a{ padding: 10px 12px; font-size: 0.98rem; }
+}
+
+/* Pequenas melhorias para ultra-pequenas telas */
+@media (max-width: 360px){
+  .btn{ max-width: 280px; }
+  header nav ul{ gap: 10px; }
+  h2{ font-size: 1.45rem; }
 }
 
 

@@ -16,9 +16,8 @@ html{
   scroll-behavior: smooth;
 }
 
-/* Se o header for transformado em fixed no futuro: cria um pequeno offset usando ancoras com padding */
+
 .section_about:target {
-  /* garante que o topo da seção não fique colado ao topo caso o header seja fixo */
   scroll-margin-top: 20px;
 }
 
@@ -55,6 +54,10 @@ header ul {
   align-items: center;
   height: 100%;
 }
+/*
+  Notas sobre o header:
+  - usamos dois grupos de navegação (esquerda e direita) com a logo no centro
+*/
 
 header ul li {
   display: flex;
@@ -65,7 +68,7 @@ header ul li {
 }
 
 header ul li {
-  position: relative; /* Remova os paddings pra ter melhor alinhamento */
+  position: relative; 
   padding: 0;
 }
 
@@ -96,7 +99,7 @@ header img {
 
 .carrossel_placeholder{
   width: 100%;
-  height: 400px;
+  height: 614px;
   background-color: #e0e0e0;
   display: flex;
   justify-content: center;
@@ -115,7 +118,7 @@ header img {
   flex: 1;
   margin-top: 40px; /* empurra o texto um pouco para baixo em relação à imagem */
   padding-left: 40px; /* aumenta o espaço à esquerda para sair da borda */
-  position: relative; /* para permitir transform e z-index */
+  position: relative; 
 }
 
 
@@ -148,6 +151,11 @@ header img {
   z-index: 2; /* traz a imagem para frente */
   position: relative;
 }
+/*
+  As imagens têm um leve deslocamento (transform) para criar profundidade.
+  Em dispositivos móveis esse efeito é removido para evitar que atrapalhe o fluxo
+  (veja media queries no final do arquivo).
+*/
 
 .section_materials .content_materials {
   flex: 1;
@@ -158,7 +166,7 @@ header img {
   font-size: 2.5rem;
   margin-bottom: 20px;
   color: #333;
-  margin-top: 0; /* Garante que não desça */
+  margin-top: 0; 
 }
 
 .section_materials .content_materials p {
@@ -166,7 +174,7 @@ header img {
   font-size: 1rem;
   color: #555;
   line-height: 1.6;
-  margin-top: 0; /* Garante que não desça */
+  margin-top: 0; 
 }
 
 
@@ -200,7 +208,7 @@ header img {
   padding: 0 20px;
   display: flex;
   align-items: center;
-  gap: 30px; /* diminui gap para aproximar texto e imagem */
+  gap: 30px; 
   flex-direction: row-reverse; /* Inverte a ordem para texto à esquerda, imagem à direita */
 
 }
@@ -404,11 +412,11 @@ header img {
 }
 
 
-/* BARRA PRETA - LOGO */
 
 
 
-/* RESPOSIVIDADE */
+
+
 
 /* FOOTER */
 .site-footer{
@@ -434,7 +442,7 @@ header img {
   opacity: 1;
   text-decoration: underline;
 }
-
+/* Responsividade: em telas pequenas*/
 @media (max-width: 768px){
   header{
     flex-direction: column;

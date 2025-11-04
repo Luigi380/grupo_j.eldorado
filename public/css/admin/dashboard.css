@@ -1,0 +1,144 @@
+
+
+:root {
+  --primary-bg: #fff9db; 
+  --primary-yellow: #ffc107;
+}
+
+/* Layout principal */
+.section_dashboard {
+  padding: 20px 0;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.dashboard_container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: white;
+  border-right: 1px solid #eaeaea;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.admin_header .icon-logo {
+  font-size: 24px;
+  color: var(--primary-yellow);
+}
+
+.admin_info h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.admin_info p {
+  font-size: 12px;
+  color: #777;
+  margin-top: 2px;
+}
+
+/* Estilo dos links do menu */
+.nav-link {
+  color: #555;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: var(--primary-bg);
+  color: #333;
+}
+
+.nav-link i {
+  color: #888;
+  width: 18px;
+  text-align: center;
+}
+
+/* Botão de logout */
+.logout-btn {
+  background-color: var(--primary-yellow);
+  color: #333;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: auto;
+  transition: background-color 0.2s;
+  box-shadow: none !important;
+}
+
+.logout-btn:hover {
+  background-color: #ffcc33;
+  color: #333;
+}
+
+/* Área principal de conteúdo */
+.dashboard_content {
+  flex: 1;
+  padding: 30px;
+}
+
+/* Cards de estatísticas */
+.stat-card {
+  background-color: var(--primary-bg);
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.icon-circle {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-number {
+  font-weight: 700;
+  color: #333;
+}
+
+.stat-label {
+  color: #777;
+}
+
+/* Responsividade: em telas pequenas, sidebar vira topo */
+@media (max-width: 768px) {
+  .dashboard_container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #eaeaea;
+    padding: 15px;
+  }
+
+  .dashboard_content {
+    padding: 20px;
+  }
+}

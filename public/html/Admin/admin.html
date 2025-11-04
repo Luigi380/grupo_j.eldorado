@@ -8,12 +8,18 @@
     <link rel="stylesheet" href="../../css/admin/admin.css">
 </head>
 <body>
+    <!-- Seção principal do Admin -->
     <section class="section_admin">
         <div class="admin_container">
-                <form class="admin_form">
-                    <div class="logo">
-                        <img src="../../img/Logo.png" alt="logo" class="logo-img">
-                    </div>
+            <!-- Formulário de login: usamos uma unica tag <form> com classe `admin_form`
+                 A logo foi colocada dentro do form para aparecer como parte do card.
+                 Não removi a estrutura do bootstrap (classes .form-control, .mb-3)
+                 para manter compatibilidade e estilos já existentes. -->
+            <form class="admin_form">
+                <div class="logo">
+                   
+                    <img src="../../img/Logo.png" alt="logo" class="logo-img">
+                </div>
                 <div class="mb-3">
                     <label for="username" class="form-label text-dark">Nome de usuário ou endereço de e-mail:</label>
                     <input type="text" class="form-control border-secondary" id="username" placeholder="">
@@ -30,7 +36,7 @@
 
                 </div>
 
-                <button type="submit" class="btn btn-warning w-100">Acessar</button>
+             <a href="../Admin/dashboard.html" target="_parent"><button type="button" class="btn btn-warning w-100">Acessar</button></a>
 
             </form>
             

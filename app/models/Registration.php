@@ -1,62 +1,43 @@
 <?php
     namespace App\Models;
 
-    class Registration{
-        private string $email;
-        private string $password;
+    use App\Models\User;
 
-        public function __construct(string $email, string   $password)
+    class Registration extends User{
+
+        public function __construct(string $email, string $password)
         {
-            $this->email = $email;
-            $this->password = password_hash($password, PASSWORD_DEFAULT);
+            parent::__construct($email, $password);
         }
    
         public function verifyPassword(string $passwordEntered): bool {
-            return password_verify($passwordEntered, $this->password);
+            return password_verify($passwordEntered, $this->getHashedPassword());
         }
 
-        // Save user to JSON file
+        // Salva os Usuários em arquivo JSON
         public function saveData(string $filePath): bool {
-            // Ensure file exists
+            // Garantir que o arquivo existe
             if (!file_exists($filePath)) {
                 file_put_contents($filePath, json_encode([]));
             }
 
             $users = json_decode(file_get_contents($filePath), true);
             
-            // Check if email already exists
+            // Checar se o email existe
             foreach ($users as $user) {
-                if ($user['email'] === $this->email) {
+                if ($user['email'] === $this->getEmail()) {
                     return false;
                 }
             }
 
-            // Add new user
+            // Adicionar novo Usuáriuo
             $users[] = [
-                'email' => $this->email,
-                'password' => $this->password
+                'email' => $this->getEmail(),
+                'password' => $this->getHashedPassword()
             ];
 
-            // Save to file
+            // Salavar arquivo
             return file_put_contents($filePath, json_encode($users, JSON_PRETTY_PRINT)) !== false;
         }
-
-        /* public function getEmail(){
-            return $this->email;
-        }
-
-        public function setEmail(string $email){
-            $this->email = $email;
-            return $this;
-        } */
-
-        /* public function getPassword(){
-            return $this->password;
-        }
-
-        public function setPassword($password){
-            $this->password = $password;
-            return $this;
-        } */
     }
 ?>

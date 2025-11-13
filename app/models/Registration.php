@@ -9,10 +9,6 @@
         {
             parent::__construct($email, $password);
         }
-   
-        public function verifyPassword(string $passwordEntered): bool {
-            return password_verify($passwordEntered, $this->getHashedPassword());
-        }
 
         // Salva os Usuários em arquivo JSON
         public function saveData(string $filePath): bool {

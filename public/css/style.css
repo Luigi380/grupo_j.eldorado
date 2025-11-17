@@ -11,6 +11,35 @@ body{
 
 }
 
+/* Variáveis e tipografia global para manter padrão em todo o site */
+:root{
+  --font-sans: Arial, Helvetica, sans-serif;
+  --heading-size: 2.5rem; /* tamanho padrão dos títulos principais */
+  --heading-weight: 600;
+  --text-size: 1rem;
+  --text-color: #333;
+  --muted-color: #555;
+}
+
+/* Regras globais de tipografia (padroniza h1/h2 e parágrafos nas seções) */
+h1, h2, h3 {
+  font-family: var(--font-sans);
+  color: var(--text-color);
+  margin: 0 0 .6rem 0;
+}
+
+h2 {
+  font-size: var(--heading-size);
+  font-weight: var(--heading-weight);
+}
+
+p, .lead, .section_materials .content_materials p, .section_projects .project_content p, .section_about .about_content p {
+  font-family: var(--font-sans);
+  font-size: var(--text-size);
+  color: var(--muted-color);
+  line-height: 1.6;
+}
+
 /* Rolagem suave */
 html{
   scroll-behavior: smooth;

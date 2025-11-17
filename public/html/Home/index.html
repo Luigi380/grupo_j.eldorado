@@ -14,11 +14,10 @@
     <script src="../../js/home/home_scroll.js" defer></script>
   </head>
   <body>
-    <!-- Header: navegação principal
-         - Links usam âncoras (#materiais, #sobre-nos, #contato) para rolar até seções
-         - A logo está centralizada entre os dois grupos de navegação
-         - O scroll suave é tratado via CSS (scroll-behavior) e JS de fallback (se necessário)
-    -->
+
+    
+
+    <!-- header (incluído inline para versão estática) -->
     <header>
       <nav>
         <ul>
@@ -27,8 +26,9 @@
         </ul>
       </nav>
 
-      
-      <img src="../../img/Logo.png" alt="Logo da Marmoraria" />
+      <div class="logo">
+        <a href="index.html"><img src="../../img/Logo.png" alt="Logo da Marmoraria" /></a>
+      </div>
 
       <nav>
         <ul>
@@ -37,6 +37,8 @@
         </ul>
       </nav>
     </header>
+     
+
     <!-- AREA DO CARROSSEL DE IMAGENS -->
     <section class="carrossel_placeholder"></section>
 
@@ -59,6 +61,7 @@
           </p>
 
           <button type="button" class="btn btn-warning">Ver Mais</button>
+
         </div>
       </div>
     </section>
@@ -80,6 +83,7 @@
           </p>
           
           <button type="button" class="btn btn-warning">Ver Mais</button>
+
         </div>
 
         <div class="projects_images">
@@ -129,7 +133,8 @@
         </div>
       </div>
     </section>
-    <!-- Footer -->
+
+    <!-- footer (incluído inline) -->
     <footer class="site-footer">
       <div class="container_footer">
         <p>
@@ -142,5 +147,6 @@
         </p>
       </div>
     </footer>
+
   </body>
 </html>

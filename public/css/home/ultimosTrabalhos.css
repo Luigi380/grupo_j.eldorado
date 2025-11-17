@@ -1,0 +1,297 @@
+/* Estilos gerais (se desejar, o body pode ser controlado no style.css global) */
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: #fafafa;
+	color: #333;
+}
+
+/* Header: alinhamento idêntico ao das outras páginas (layout em três áreas)
+   - navegação esquerda, logo central e navegação direita
+   - sticky no topo e sombra leve
+*/
+/* HEADER*/
+
+header {
+  display: flex;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  padding: 0 5%;
+}
+
+header nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+header nav:last-of-type {
+  justify-content: flex-end;
+}
+header .logo{
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+
+}
+
+header ul {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  align-items: center;
+  height: 100%;
+}
+/*
+  Notas sobre o header:
+  - usamos dois grupos de navegação (esquerda e direita) com a logo no centro
+*/
+
+header ul li {
+  display: flex;
+  position: relative;
+  align-items: center;
+  height: 100%;
+  
+}
+
+header ul li {
+  position: relative; 
+  padding: 0;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  transition: color 0.2s ease, font-weight 0.2s ease; /* uma leva animação na mudança de cor da lista */
+  
+}
+
+header nav ul li a:hover {
+  font-weight: bold;
+  color: rgb(255, 217, 0);
+}
+
+
+
+header img {
+  width: 161px;
+  margin-left: 2%;
+}
+
+/* Seção Últimos Trabalhos */
+.section_last_work {
+	padding: 3rem 1rem;
+	background-color: #fff;
+}
+
+.section-title {
+	text-align: center;
+	margin-bottom: 2rem;
+	font-size: 2rem;
+	color: #333;
+	position: relative;
+}
+
+.section-title::after {
+	content: '';
+	display: block;
+	width: 60px;
+	height: 4px;
+	background: #ffc107;
+	margin: 1rem auto;
+	border-radius: 2px;
+}
+
+/* Featured work (Churrasqueira) - usar mesmo estilo do bloco padrão (ex.: Escada) */
+.featured-work{
+	/* Reaproveita visual do .last_work_container */
+	background: #fff;
+	border-radius: 15px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+	padding: 2rem;
+	margin-bottom: 2rem;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.featured-content{
+	flex: 1;
+}
+
+.featured-content h2{
+	/* mesmo tamanho e família do .work-content h2 */
+	font-family: var(--font-sans);
+	font-size: 1.75rem;
+	margin-bottom: 1rem;
+	color: #333;
+}
+
+.featured-content p{
+	font-size: 0.95rem;
+	line-height: 1.6;
+	color: var(--muted-color);
+	margin-bottom: 1rem;
+}
+
+.featured-content .btn-more{
+	padding: 0.5rem 1rem;
+	border-radius: 5px;
+}
+
+.featured-image{
+	flex: 0 0 300px;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.featured-image img{
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	display: block;
+	transition: transform 0.3s ease;
+}
+
+.featured-work:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.featured-image img:hover {
+	transform: scale(1.05);
+}
+
+
+.last_work_container {
+	background: #fff;
+	border-radius: 15px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+	padding: 2rem;
+	margin-bottom: 2rem;
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+	transition: transform 0.2s;
+}
+
+.last_work_container:hover {
+	transform: translateY(-5px);
+}
+
+.work-content {
+	flex: 1;
+}
+
+.work-content h2 {
+	font-size: 1.75rem;
+	margin-bottom: 1rem;
+	color: #333;
+}
+
+.work-content p {
+	font-size: 0.95rem;
+	line-height: 1.6;
+	color: #555;
+	margin-bottom: 1.5rem;
+}
+
+.btn-more {
+	background-color: #ffc107;
+	color: #333;
+	border: none;
+	padding: 0.5rem 1rem;
+	border-radius: 5px;
+	font-weight: bold;
+	transition: background-color 0.2s;
+}
+
+.btn-more:hover {
+	background-color: #ffca28;
+}
+
+.work-image {
+	flex: 0 0 300px;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.work-image img {
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	transition: transform 0.3s;
+}
+
+.work-image img:hover {
+	transform: scale(1.05);
+}
+
+/* Responsividade: adapta o header e as seções para telas menores */
+@media (max-width: 992px) {
+	header { padding: 12px 4%; }
+	nav ul { gap: 1.25rem; }
+}
+
+@media (max-width: 768px) {
+	/* Empilha o header para caber em telas móveis, mantendo logo centralizada */
+	header {
+		flex-direction: column;
+		align-items: center;
+		padding: 12px 16px;
+		gap: 8px;
+	}
+
+	nav { width: 100%; }
+	nav ul { justify-content: center; gap: 12px; flex-wrap: wrap; }
+	.navbar-brand img { height: 48px; }
+
+	.last_work_container {
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.work-image {
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+
+	.section-title { font-size: 1.5rem; }
+
+	/* Faz o featured empilhar em telas pequenas */
+	.featured-work{
+		flex-direction: column-reverse;
+		padding: 1.25rem;
+	}
+
+	.featured-image{ max-width: 100%; flex: 0 0 100%; }
+
+}
+
+@media (max-width: 480px) {
+	.navbar-brand img { height: 40px; }
+	.section-title { font-size: 1.25rem; }
+	.work-content h2 { font-size: 1.4rem; }
+}
+
+/* Footer styles (copiado para garantir consistência com materiais.html) */
+footer{
+	background:#222;
+	color:#fff;
+	padding:1rem 0;
+}
+.footer-inner{
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+}
+.footer-inner a{ color: #ffd166; margin-left:1rem; text-decoration:none }
+
+@media (max-width: 768px){
+	.footer-inner{ flex-direction:column; gap:0.5rem; text-align:center }
+}
+

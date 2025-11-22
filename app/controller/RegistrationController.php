@@ -20,7 +20,7 @@ class RegistrationController
         }
 
         $registration = new Registration($email, $password);
-        $result = $registration->saveData($email, $password);
+        $result = $registration->saveData();
         echo json_encode($result);
     }
 }

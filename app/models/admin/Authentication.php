@@ -2,16 +2,14 @@
 
 namespace App\Models;
 
-use App\Models\User;
 use App\Core\SupabaseClient;
 
-class Authentication extends User
+class Authentication
 {
     private $supabase;
 
-    public function __construct(string $email, string $password)
+    public function __construct()
     {
-        return parent::__construct($email, $password);
         $this->supabase = new SupabaseClient();
     }
 

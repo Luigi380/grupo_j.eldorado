@@ -19,7 +19,7 @@ class AuthenticationController
             return;
         }
 
-        $authentication = new Authentication($email, $password);
+        $authentication = new Authentication();
         $result = $authentication->verifyCredentials($email, $password);
         echo json_encode($result);
     }

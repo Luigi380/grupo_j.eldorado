@@ -16,18 +16,18 @@ class Registration extends User
         $this->supabase = new SupabaseClient();
     }
 
-    public function saveData(string $emailEntered, string $passwordEntered)
+    public function saveData(): array
     {
         try {
-            $verify = $this->supabase->get("login_admin?email=eq.$emailEntered");
+            $verify = $this->supabase->get("login_admin?email=eq.{$this->getEmail()}");
 
             if (!empty($verify)) {
                 throw new \Exception("Email já existente!");
             }
 
             $insert = $this->supabase->insert("login_admin", [
-                "email" => $emailEntered,
-                "senha" => $passwordEntered
+                "email" => $this->getEmail(),
+                "senha" => $this->getPasswordHash()
             ]);
 
             return [

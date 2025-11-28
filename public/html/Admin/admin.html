@@ -1,51 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../../css/admin/admin.css">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="../../css/admin_css/admin.css" />
+    <script src="../../js/auth/login.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
     <!-- Seção principal do Admin. Aqui aplicamos o fundo cinza e centralizamos todo o conteúdo -->
     <section class="section_admin">
-        <div class="admin_container">
-            <!-- Formulário de login: usamos uma única tag <form> com classe `admin_form`
+      <div class="admin_container">
+        <!-- Formulário de login: usamos uma única tag <form> com classe `admin_form`
                  A logo foi colocada dentro do form para aparecer como parte do card.
                  Não removi a estrutura do bootstrap (classes .form-control, .mb-3)
                  para manter compatibilidade e estilos já existentes. -->
-            <form class="admin_form">
-                <div class="logo">
-                    <!-- Logo dentro do formulário. A classe `logo-img` controla tamanho responsivo -->
-                    <img src="../../img/Logo.png" alt="logo" class="logo-img">
-                </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label text-dark">Nome de usuário ou endereço de e-mail:</label>
-                    <input type="text" class="form-control border-secondary" id="username" placeholder="">
-                </div>
+        <form class="admin_form" id="loginForm">
+          <div class="logo">
+            <!-- Logo dentro do formulário. A classe `logo-img` controla tamanho responsivo -->
+            <img src="../../img/Logo.png" alt="logo" class="logo-img" />
+          </div>
+          <div class="mb-3">
+            <label for="username" class="form-label text-dark"
+              >Endereço de e-mail:</label
+            >
+            <input
+              type="email"
+              name="email"
+              class="form-control border-secondary"
+              id="email"
+              placeholder=""
+            />
+          </div>
 
-                <div class="mb-3">
-                    <label for="password" class="form-label text-dark">Senha:</label>
-                    <input type="password" class="form-control border-secondary" id="password" placeholder="">
-                </div>
+          <div class="mb-3">
+            <label for="password" class="form-label text-dark">Senha:</label>
+            <input
+              type="password"
+              name="password"
+              class="form-control border-secondary"
+              id="password"
+              placeholder=""
+            />
+          </div>
 
-                <div class="checkbox">
-                    <input type="checkbox" class="form-check-input me-2" id="remember">
-                    <label for="remember" class="form-check-label text-dark">Lembrar-me</label>
+          <div class="checkbox">
+            <input
+              type="checkbox"
+              class="form-check-input me-2"
+              id="remember"
+            />
+            <label for="remember" class="form-check-label text-dark"
+              >Lembrar-me</label
+            >
+          </div>
 
-                </div>
-
-             <!-- Botão de acesso: aqui usamos um link que leva ao dashboard (apenas para demonstração)
+          <!-- Botão de acesso: aqui usamos um link que leva ao dashboard (apenas para demonstração)
                  Em produção esse botão deve submeter o form (type="submit") e o backend deve validar. -->
-             <a href="dashboard.html" target="_parent"><button type="button" class="btn btn-warning w-100">Acessar</button></a>
-
-            </form>
-            
-
-        </div>
-
+          <!-- <a href="dashboard.html" target="_parent"><button type="button" class="btn btn-warning w-100">Acessar</button></a> -->
+          <button type="submit" class="btn btn-warning w-100">Acessar</button>
+        </form>
+      </div>
     </section>
-    
-</body>
+  </body>
 </html>

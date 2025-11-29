@@ -18,7 +18,7 @@ $filePath = __DIR__ . '/../data/users.json';
 // Create controller and process registration
 try {
     $controller = new RegistrationController($filePath);
-    $response = $controller->registerData($input);
+    $response = $controller->register($input);
     echo json_encode($response);
 } catch (Exception $e) {
     http_response_code(500);

@@ -16,5 +16,7 @@
       "email": "gustavoifesserra@gmail.com"
     }
   ],
-  "require": {}
+  "require": {
+    "vlucas/phpdotenv": "^5.6"
+  }
 }

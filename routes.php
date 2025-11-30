@@ -1,25 +1,36 @@
 <?php
 
 use App\Core\Router;
-use App\Controllers\AuthenticationController;
-use App\Controllers\RegistrationController;
-use App\Controllers\ItemRegistrationController;
-use App\Controllers\LogoutController;
-use App\Controllers\HomeController;
+use App\Controllers\AdminController;
+use App\Controllers\ItemsController;
+use App\Controllers\ViewController;
 
-$router = new Router('/grupo_j_eldorado/public');
+$router = new Router('/grupo_j.eldorado/public');
 
-$router->get('/', [HomeController::class, 'index']);
+//View Usuário
+$router->get('/', [ViewController::class, 'index']);
+$router->get('/materiais', [ViewController::class, 'materiais']);
+$router->get('/ultimos-trabalhos', [ViewController::class, 'ultimosTrabalhos']);
 
-$router->post('/admin/login', [AuthenticationController::class, 'auth']);
-$router->post('/admin/cadastrar', [RegistrationController::class, 'register']);
+//View Admin
+$router->get('/admin', [ViewController::class, 'login']);
+$router->get('/admin/login', [ViewController::class, 'login']);
+$router->get('/admin/dashboard', [ViewController::class, 'dashboard']);
+$router->get('/admin/conteudo', [ViewController::class, 'adminConteudo']);
+$router->get('/admin/home-edit', [ViewController::class, 'homeEdit']);
 
-$router->post('/admin/item/cadastrar', [ItemRegistrationController::class, 'create']);
-$router->get('/admin/item/listar', [ItemRegistrationController::class, 'list']);
-$router->get('/admin/item/exibir/{$id}', [ItemRegistrationController::class, 'show']);
-$router->put('/admin/item/atualizar/{$id}', [ItemRegistrationController::class, 'update']);
-$router->delete('/admin/item/deletar/{$id}', [ItemRegistrationController::class, 'delete']);
+//Rotas BackEnd Admin
+$router->post('/admin/login', [AdminController::class, 'login']);
+$router->post('/admin/logout', [AdminController::class, 'logout']);
+$router->post('/admin/cadastrar', [AdminController::class, 'register']);
+$router->get('/admin/listar-admins', [AdminController::class, 'listAdmins']);
+$router->delete('/admin/deletar/{id}', [AdminController::class, 'deleteAdmin']);
 
-$router->post('/admin/logout', [LogoutController::class, 'logout']);
+//Rotas BackEnd Items
+$router->post('/admin/item/cadastrar', [ItemsController::class, 'create']);
+$router->get('/admin/item/listar', [ItemsController::class, 'list']);
+$router->get('/admin/item/exibir/{id}', [ItemsController::class, 'show']);
+$router->put('/admin/item/atualizar/{id}', [ItemsController::class, 'update']);
+$router->delete('/admin/item/deletar/{id}', [ItemsController::class, 'delete']);
 
 return $router;

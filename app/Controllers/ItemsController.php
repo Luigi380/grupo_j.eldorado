@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ItemRegistration;
 
-class ItemRegistrationController
+class ItemsController
 {
     /**
      * Cria um novo item

@@ -153,7 +153,8 @@ header img {
 	height: auto;
 	object-fit: cover;
 	display: block;
-	transition: transform 0.3s ease;
+	/* Removida animação ao passar o mouse */
+	transition: none !important;
 }
 
 .featured-work:hover {
@@ -162,7 +163,7 @@ header img {
 }
 
 .featured-image img:hover {
-	transform: scale(1.05);
+	transform: none !important;
 }
 
 
@@ -224,11 +225,11 @@ header img {
 	width: 100%;
 	height: auto;
 	object-fit: cover;
-	transition: transform 0.3s;
+	transition: none !important;
 }
 
 .work-image img:hover {
-	transform: scale(1.05);
+	transform: none !important;
 }
 
 /* Responsividade: adapta o header e as seções para telas menores */

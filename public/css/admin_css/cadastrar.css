@@ -1,0 +1,51 @@
+/* Styles for admin registration page */
+body {
+	background: #fff;
+	font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+.sair-btn {
+	position: fixed;
+	top: 18px;
+	right: 18px;
+	z-index: 1200;
+	background: #f6d86a;
+	color: #1b1b1b;
+	border: none;
+	padding: 8px 12px;
+	border-radius: 8px;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+	text-decoration: none;
+}
+
+.cadastro-card {
+	width: 420px;
+	border-radius: 12px;
+	background: #efefef;
+}
+
+.logo-register {
+	width: 140px;
+	max-width: 70%;
+}
+
+input.form-control {
+	border-radius: 6px;
+	background: rgba(255,255,255,0.95);
+}
+
+.btn-warning {
+	background-color: #f6d86a;
+	border-color: #f0c84d;
+	color: #1b1b1b;
+}
+
+.btn-warning:hover {
+	filter: brightness(0.98);
+}
+
+@media (max-width: 576px) {
+	.cadastro-card { width: 92%; }
+	.logo-register { width: 120px; }
+	.sair-btn { top: 12px; right: 12px; padding: 6px 10px; }
+}

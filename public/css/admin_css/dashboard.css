@@ -1,11 +1,11 @@
 :root {
-  --primary-bg: #fff9db; 
+  --primary-bg: #fff5db; 
   --primary-yellow: #ffc107;
 }
 
 /* Layout principal */
 .section_dashboard {
-  padding: 20px 0;
+  padding: 0; /* ocupar tela inteira sem gaps */
   min-height: 100vh;
   background-color: #f5f5f5;
 }
@@ -16,7 +16,9 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* manter sidebar fixa e conteúdo expansível */
+  width: 100%;
+  min-height: 100vh; /* ocupar tela inteira */
 }
 
 /* Sidebar */
@@ -27,7 +29,9 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh; /* ocupar altura total da viewport */
+  position: sticky;
+  top: 0;
 }
 
 .admin_header .icon-logo {
@@ -38,12 +42,12 @@
 .admin_info h2 {
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: #000000;
 }
 
 .admin_info p {
   font-size: 12px;
-  color: #777;
+  color: #000000;
   margin-top: 2px;
 }
 
@@ -61,7 +65,7 @@
 }
 
 .nav-link i {
-  color: #888;
+  color: #ffc400;
   width: 18px;
   text-align: center;
 }
@@ -91,19 +95,19 @@
 /* Área principal de conteúdo */
 .dashboard_content {
   flex: 1;
-  padding: 30px;
+  padding: 40px 48px;
 }
 
 /* Cards de estatísticas */
 .stat-card {
   background-color: var(--primary-bg);
   border: none !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s;
 }
 
 .stat-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .icon-circle {
@@ -120,7 +124,7 @@
 }
 
 .stat-label {
-  color: #777;
+  color: #fcfbfb;
 }
 
 /* Responsividade: em telas pequenas, sidebar vira topo */

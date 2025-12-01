@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Middleware\AuthMiddleware;
+
 class ViewController
 {
     public function index()
@@ -47,6 +49,15 @@ class ViewController
 
     public function login()
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+            header('Location: /grupo_j.eldorado/public/admin/dashboard');
+            exit;
+        }
+
         $viewPath = __DIR__ . '/../View/Admin/admin.html';
 
         if (!file_exists($viewPath)) {
@@ -60,6 +71,7 @@ class ViewController
 
     public function dashboard()
     {
+        AuthMiddleware::checkAuth();
         $viewPath = __DIR__ . '/../View/Admin/dashboard.html';
 
         if (!file_exists($viewPath)) {
@@ -73,6 +85,7 @@ class ViewController
 
     public function adminConteudo()
     {
+        AuthMiddleware::checkAuth();
         $viewPath = __DIR__ . '/../View/Admin/conteudo.html';
 
         if (!file_exists($viewPath)) {
@@ -86,6 +99,7 @@ class ViewController
 
     public function homeEdit()
     {
+        AuthMiddleware::checkAuth();
         $viewPath = __DIR__ . '/../View/Admin/homeEdit.html';
 
         if (!file_exists($viewPath)) {

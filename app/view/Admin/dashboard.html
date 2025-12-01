@@ -17,6 +17,8 @@
       rel="stylesheet"
       href="/grupo_j.eldorado/public/css/admin_css/dashboard.css"
     />
+    <script src="/grupo_j.eldorado/public/js/dashboard-stats.js" defer></script>
+    <script src="/grupo_j.eldorado/public/js/auth/logout.js" defer></script>
   </head>
   <body>
     <!--
@@ -62,11 +64,13 @@
             </li>
           </ul>
 
-          <!-- Botão de logout: aqui apenas representativo (sem funcionalidade) -->
-          <button class="logout-btn btn btn-outline-secondary">
-            <a href="../Admin/admin.html" target="_parent">
-              <i class="fa-solid fa-arrow-left"> </i> Sair</a
-            >
+          <button
+            type="button"
+            id="logoutBtn"
+            class="logout-btn btn btn-outline-secondary"
+          >
+            <i class="fa-solid fa-arrow-left"></i>
+            Sair
           </button>
         </div>
 

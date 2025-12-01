@@ -10,6 +10,10 @@ class AdminController
     {
         header("Content-Type: application/json");
 
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $email = $_POST["email"] ?? null;
         $password = $_POST["password"] ?? null;
 
@@ -31,19 +35,23 @@ class AdminController
             return;
         }
 
-        session_start();
-        $_SESSION["admin_id"] = $auth["data"]["id"];
+        $_SESSION["admin_id"] = $auth["data"]["id_adm"];
+        $_SESSION["admin_email"] = $auth["data"]["email"];
+        $_SESSION["logged_in"] = true;
 
         echo json_encode([
             "error" => false,
             "message" => "Login realizado",
-            "admin_id" => $auth["data"]["id"]
+            "admin_id" => $auth["data"]["id_adm"]
         ]);
     }
 
     public function logout()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $_SESSION = [];
         session_destroy();
 

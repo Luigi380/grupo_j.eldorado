@@ -47,6 +47,45 @@ class ViewController
         readfile($viewPath);
     }
 
+    public function granitos()
+    {
+        $viewPath = __DIR__ . '/../View/Home/granitos.html';
+
+        if (!file_exists($viewPath)) {
+            http_response_code(500);
+            echo "Erro: View index.html não encontrada.";
+            return;
+        }
+
+        readfile($viewPath);
+    }
+
+    public function marmores()
+    {
+        $viewPath = __DIR__ . '/../View/Home/marmores.html';
+
+        if (!file_exists($viewPath)) {
+            http_response_code(500);
+            echo "Erro: View index.html não encontrada.";
+            return;
+        }
+
+        readfile($viewPath);
+    }
+
+    public function quartzos()
+    {
+        $viewPath = __DIR__ . '/../View/Home/quartzos.html';
+
+        if (!file_exists($viewPath)) {
+            http_response_code(500);
+            echo "Erro: View index.html não encontrada.";
+            return;
+        }
+
+        readfile($viewPath);
+    }
+
     public function login()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -101,6 +140,20 @@ class ViewController
     {
         AuthMiddleware::checkAuth();
         $viewPath = __DIR__ . '/../View/Admin/homeEdit.html';
+
+        if (!file_exists($viewPath)) {
+            http_response_code(500);
+            echo "Erro: View index.html não encontrada.";
+            return;
+        }
+
+        readfile($viewPath);
+    }
+
+    public function cadastro()
+    {
+        AuthMiddleware::checkAuth();
+        $viewPath = __DIR__ . '/../View/Admin/cadastro.html';
 
         if (!file_exists($viewPath)) {
             http_response_code(500);

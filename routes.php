@@ -11,6 +11,9 @@ $router = new Router('/grupo_j.eldorado/public');
 $router->get('/', [ViewController::class, 'index']);
 $router->get('/materiais', [ViewController::class, 'materiais']);
 $router->get('/ultimos-trabalhos', [ViewController::class, 'ultimosTrabalhos']);
+$router->get('/granitos', [ViewController::class, 'granitos']);
+$router->get('/marmores', [ViewController::class, 'marmores']);
+$router->get('/quartzos', [ViewController::class, 'quartzos']);
 
 //View Admin
 $router->get('/admin', [ViewController::class, 'login']);
@@ -18,6 +21,7 @@ $router->get('/admin/login', [ViewController::class, 'login']);
 $router->get('/admin/dashboard', [ViewController::class, 'dashboard']);
 $router->get('/admin/conteudo', [ViewController::class, 'adminConteudo']);
 $router->get('/admin/home-edit', [ViewController::class, 'homeEdit']);
+$router->get('/admin/cadastro', [ViewController::class, 'cadastro']);
 
 //Rotas BackEnd Admin
 $router->post('/admin/login', [AdminController::class, 'login']);

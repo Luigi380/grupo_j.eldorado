@@ -17,12 +17,14 @@
       rel="stylesheet"
       href="/grupo_j.eldorado/public/css/admin_css/cadastrar.css"
     />
+
+    <script src="/grupo_j.eldorado/public/js/auth/register.js" defer></script>
   </head>
 
   <body>
     <!-- Botão Sair (canto superior direito) -->
     <a
-      href="admin.html"
+      href="/grupo_j.eldorado/public/admin/"
       class="btn sair-btn position-fixed"
       style="top: 18px; right: 18px; z-index: 1200"
       >← Sair</a
@@ -43,26 +45,9 @@
             />
           </div>
 
-          <form
-            id="registerForm"
-            action="#"
-            method="post"
-            class="needs-validation"
-            novalidate
-          >
+          <form id="registerForm" class="needs-validation" novalidate>
             <div class="mb-3">
-              <label for="name" class="form-label">Nome:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                name="name"
-                required
-              />
-            </div>
-
-            <div class="mb-3">
-              <label for="email" class="form-label">Endereço de e-mail:</label>
+              <label for="email" class="form-label">Endereço de E-mail:</label>
               <input
                 type="email"
                 class="form-control"
@@ -70,11 +55,6 @@
                 name="email"
                 required
               />
-            </div>
-
-            <div class="mb-3">
-              <label for="phone" class="form-label">Telefone:</label>
-              <input type="tel" class="form-control" id="phone" name="phone" />
             </div>
 
             <div class="mb-3">
@@ -88,15 +68,28 @@
               />
             </div>
 
-            <div class="mb-4">
+            <div class="mb-3">
               <label for="passwordConfirm" class="form-label"
-                >Validar novo usuário com senha:</label
+                >Confirmar Senha:</label
               >
               <input
                 type="password"
                 class="form-control"
                 id="passwordConfirm"
                 name="passwordConfirm"
+                required
+              />
+            </div>
+
+            <div class="mb-4">
+              <label for="adminPassword" class="form-label"
+                >Validar novo usuário com senha:</label
+              >
+              <input
+                type="password"
+                class="form-control"
+                id="adminPassword"
+                name="adminPassword"
                 required
               />
             </div>

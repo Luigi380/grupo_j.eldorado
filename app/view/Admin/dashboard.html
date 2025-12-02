@@ -13,7 +13,12 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="../../css/admin_css/dashboard.css" />
+    <link
+      rel="stylesheet"
+      href="/grupo_j.eldorado/public/css/admin_css/dashboard.css"
+    />
+    <script src="/grupo_j.eldorado/public/js/dashboard-stats.js" defer></script>
+    <script src="/grupo_j.eldorado/public/js/auth/logout.js" defer></script>
   </head>
   <body>
     <!--
@@ -42,7 +47,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="../Admin/conteudo.html" target="_parent"
+              <a class="nav-link" href="conteudo" target="_parent"
                 ><i class="fa-solid fa-folder"></i> Conteúdo</a
               >
             </li>
@@ -59,11 +64,13 @@
             </li>
           </ul>
 
-          <!-- Botão de logout: aqui apenas representativo (sem funcionalidade) -->
-          <button class="logout-btn btn btn-outline-secondary">
-            <a href="../Admin/admin.html" target="_parent">
-              <i class="fa-solid fa-arrow-left"> </i> Sair</a
-            >
+          <button
+            type="button"
+            id="logoutBtn"
+            class="logout-btn btn btn-outline-secondary"
+          >
+            <i class="fa-solid fa-arrow-left"></i>
+            Sair
           </button>
         </div>
 

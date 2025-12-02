@@ -53,6 +53,11 @@ class SupabaseClient
         return $this->request("/rest/v1/{$table}", 'GET');
     }
 
+    public function getWhere(string $table, string $filter): array
+    {
+        return $this->request("/rest/v1/{$table}?{$filter}", 'GET');
+    }
+
     public function insert(string $table, array $data): array
     {
         return $this->request("/rest/v1/{$table}", 'POST', $data);

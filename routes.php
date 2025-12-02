@@ -22,6 +22,7 @@ $router->get('/admin/login', [ViewController::class, 'login']);
 $router->get('/admin/dashboard', [ViewController::class, 'dashboard']);
 $router->get('/admin/home-edit', [ViewController::class, 'homeEdit']);
 $router->get('/admin/cadastro', [ViewController::class, 'cadastro']);
+$router->get('/admin/settings', [ViewController::class, 'settings']);
 
 //Rotas BackEnd Admin
 $router->post('/admin/login', [AdminController::class, 'login']);
@@ -29,6 +30,9 @@ $router->post('/admin/logout', [AdminController::class, 'logout']);
 $router->post('/admin/cadastrar', [AdminController::class, 'register']);
 $router->get('/admin/listar-admins', [AdminController::class, 'listAdmins']);
 $router->delete('/admin/deletar/{id}', [AdminController::class, 'deleteAdmin']);
+$router->get('/admin/current', [AdminController::class, 'getCurrentAdmin']);
+$router->put('/admin/update-email', [AdminController::class, 'updateEmail']);
+$router->put('/admin/update-password', [AdminController::class, 'updatePassword']);
 
 //Rotas BackEnd Items
 $router->post('/admin/item/cadastrar', [ItemsController::class, 'create']);

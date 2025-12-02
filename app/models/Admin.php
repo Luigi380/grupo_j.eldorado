@@ -18,7 +18,7 @@ class Admin
         return $this->supabase->getWhere("login_admin", "email=eq.$email");
     }
 
-    public function findById(int $id)
+    public function findById(string $id)
     {
         return $this->supabase->getWhere("login_admin", "id_adm=eq.$id");
     }
@@ -30,11 +30,11 @@ class Admin
 
     public function create(string $email, string $password)
     {
-        /* $hashed = password_hash($password, PASSWORD_DEFAULT); */
+        $hashed = password_hash($password, PASSWORD_DEFAULT);
 
         return $this->supabase->insert("login_admin", [
             "email" => $email,
-            "senha" => /* $hashed */ $password
+            "senha" => $hashed
         ]);
     }
 
@@ -56,7 +56,7 @@ class Admin
 
         $admin = $result[0];
 
-        if (/* !password_verify($password, $admin["senha"]) */$password !== $admin['senha']) {
+        if (!password_verify($password, $admin["senha"])) {
             return [
                 "error" => true,
                 "message" => "Senha incorreta"

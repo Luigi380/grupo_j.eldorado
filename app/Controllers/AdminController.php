@@ -65,11 +65,17 @@ class AdminController
     {
         header("Content-Type: application/json");
 
+        // Verifica se há uma sessão ativa
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
         $email = $_POST["email"] ?? null;
         $password = $_POST["password"] ?? null;
-        $confirm = $_POST["confirm_password"] ?? null;
+        $passwordConfirm = $_POST["passwordConfirm"] ?? null;
+        $adminPassword = $_POST["adminPassword"] ?? null;
 
-        if (!$email || !$password || !$confirm) {
+        if (!$email || !$password || !$passwordConfirm) {
             http_response_code(400);
             echo json_encode([
                 "error" => true,
@@ -78,7 +84,7 @@ class AdminController
             return;
         }
 
-        if ($password !== $confirm) {
+        if ($password !== $passwordConfirm) {
             echo json_encode([
                 "error" => true,
                 "message" => "Senhas diferentes"
@@ -87,6 +93,28 @@ class AdminController
         }
 
         $adminModel = new Admin();
+
+        // Valida a senha do admin atual (quem está cadastrando)
+        $currentAdminId = $_SESSION["admin_id"];
+        $currentAdmin = $adminModel->findById($currentAdminId);
+
+        if (empty($currentAdmin)) {
+            http_response_code(401);
+            echo json_encode([
+                "error" => true,
+                "message" => "Administrador atual não encontrado"
+            ]);
+            return;
+        }
+
+        // Verifica se a senha do admin atual está correta
+        if (!password_verify($adminPassword, $currentAdmin[0]['senha'])) {
+            echo json_encode([
+                "error" => true,
+                "message" => "Senha do administrador atual incorreta. Validação falhou."
+            ]);
+            return;
+        }
 
         if (!empty($adminModel->findByEmail($email))) {
             echo json_encode([

@@ -1,15 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-     <!-- Font Awesome (para ícones) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="../../css/admin_css/dashboard.css">
-</head>
-<body>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome (para ícones) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../../css/admin_css/dashboard.css" />
+  </head>
+  <body>
     <!--
       Estrutura do dashboard
       - Sidebar: navegação lateral com links do painel
@@ -17,96 +23,121 @@
       Observação: usamos classes do Bootstrap (ex.: row / col-6 / col-md-3) para responsividade
     -->
     <section class="section_dashboard">
-        <div class="dashboard_container container-fluid">
-            <!--Sidebar-->
-            <div class="sidebar">
-                <div class="admin_header d-flex align-items-center gap-2">
-                    <i class="fa-solid fa-sitemap icon-logo"></i>
-                    <div class="admin_info">
-                        <h2>Admin</h2>
-                        <p>Painel de administração</p>
-                    </div>
-                </div>
-
-                <ul class="nav flex-column mb-3">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa-solid fa-arrow-right"></i> dashboard</a>
-                    </li>
-
-                    
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa-solid fa-image"></i> Galeria</a>
-                    </li>
-                    
-                </ul>
-                
+      <div class="dashboard_container container-fluid">
+        <!--Sidebar-->
+        <div class="sidebar">
+          <div class="admin_header d-flex align-items-center gap-2">
+            <i class="fa-solid fa-sitemap icon-logo"></i>
+            <div class="admin_info">
+              <h2>Admin</h2>
+              <p>Painel de administração</p>
             </div>
+          </div>
 
-            <!-- Content -->
-            <div class="dashboard_content mt-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h1 class="m-0">Dashboard</h1>
-                    <a href="admin.html" class="btn btn-warning">← Sair</a>
-                </div>
+          <ul class="nav flex-column mb-3">
+            <li class="nav-item">
+              <a class="nav-link" href="#"
+                ><i class="fa-solid fa-arrow-right"></i> dashboard</a
+              >
+            </li>
 
-                <div class="row g-4 mb-4">
-                    <!-- Card: administradores ativos -->
-                    <div class="col-12 col-md-4">
-                      <div class="stat-card p-3 border rounded d-flex gap-3 align-items-center">
-                        <div class="icon-circle bg-light p-3 rounded-circle">
-                          <i class="fa-solid fa-user"></i>
-                        </div>
-                        <div>
-                          <div class="stat-number h4 m-0"></div>
-                          <div class="stat-label small text-muted">Adms Ativos</div>
-                        </div>
-                      </div>
-                    </div>
+            <li class="nav-item">
+              <a class="nav-link" href="../Admin/conteudo.html" target="_parent"
+                ><i class="fa-solid fa-folder"></i> Conteúdo</a
+              >
+            </li>
 
-                    <!-- Card: imagens/galeria -->
-                    <div class="col-12 col-md-4">
-                      <div class="stat-card p-3 border rounded d-flex gap-3 align-items-center">
-                        <div class="icon-circle bg-light p-3 rounded-circle">
-                          <i class="fa-solid fa-image"></i>
-                        </div>
-                        <div>
-                          <div class="stat-number h4 m-0"></div>
-                          <div class="stat-label small text-muted">Galeria</div>
-                        </div>
-                      </div>
-                    </div>
+            <li class="nav-item">
+              <a class="nav-link" href="#"
+                ><i class="fa-solid fa-image"></i> Galeria</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"
+                ><i class="fa-solid fa-gear"></i> Configuração</a
+              >
+            </li>
+          </ul>
 
-                </div>
-
-                <!-- Tabela de administradores ativos -->
-                <div class="card border-0 shadow-sm">
-                  <div class="card-header bg-white">
-                    <h5 class="mb-0">Adms Ativos</h5>
-                  </div>
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-bordered table-hover mb-0">
-                        <thead class="table-light">
-                          <tr>
-                            <th>Nome</th>
-                            <th>E-mail</th>
-                            <th>Telefone</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <!-- Tabela vazia: será populada por processo externo -->
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-            </div>
-
+          <!-- Botão de logout: aqui apenas representativo (sem funcionalidade) -->
+          <button class="logout-btn btn btn-outline-secondary">
+            <a href="../Admin/admin.html" target="_parent">
+              <i class="fa-solid fa-arrow-left"> </i> Sair</a
+            >
+          </button>
         </div>
 
-    </section>
+        <!-- Content -->
+        <div class="dashboard_content mt-4">
+          <div class="dashboard_header mb-4">
+            <h1>Dashboard</h1>
+          </div>
 
-</body>
+          <div class="row g-4">
+            <!-- Card 1: visitantes mensais (exemplo de métrica) -->
+            <div class="col-6 col-md-3">
+              <div
+                class="stat-card p-3 border rounded d-flex gap-3 align-items-center"
+              >
+                <div class="icon-circle bg-light p-3 rounded-circle">
+                  <i class="fa-solid fa-user"></i>
+                </div>
+                <div>
+                  <div class="stat-number h4 m-0">0</div>
+                  <div class="stat-label small text-muted">
+                    Visitantes Mensais
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: administradores ativos -->
+            <div class="col-6 col-md-3">
+              <div
+                class="stat-card p-3 border rounded d-flex gap-3 align-items-center"
+              >
+                <div class="icon-circle bg-light p-3 rounded-circle">
+                  <i class="fa-solid fa-comment"></i>
+                </div>
+                <div>
+                  <div class="stat-number h4 m-0">0</div>
+                  <div class="stat-label small text-muted">Adms Ativos</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: projetos ativos -->
+            <div class="col-6 col-md-3">
+              <div
+                class="stat-card p-3 border rounded d-flex gap-3 align-items-center"
+              >
+                <div class="icon-circle bg-light p-3 rounded-circle">
+                  <i class="fa-solid fa-database"></i>
+                </div>
+                <div>
+                  <div class="stat-number h4 m-0">0</div>
+                  <div class="stat-label small text-muted">Projetos ativos</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4: imagens -->
+            <div class="col-6 col-md-3">
+              <div
+                class="stat-card p-3 border rounded d-flex gap-3 align-items-center"
+              >
+                <div class="icon-circle bg-light p-3 rounded-circle">
+                  <i class="fa-solid fa-image"></i>
+                </div>
+                <div>
+                  <div class="stat-number h4 m-0">0</div>
+                  <div class="stat-label small text-muted">Imagens</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

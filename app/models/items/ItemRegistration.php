@@ -13,16 +13,16 @@ class ItemRegistration
     public function __construct($adminId)
     {
         $this->supabase = new SupabaseClient();
-        $this->$adminId = $$adminId;
+        $this->$adminId = $adminId;
     }
 
-    public function saveItem(string $text, string $img, string $name)
+    public function saveItem(string $text, string $imgUrl, string $name)
     {
         try {
             $insert = $this->supabase->insert("cadastrar_itens", [
                 "id_adm" => $this->adminId,
                 "nome" => $name,
-                "foto" => $img,
+                "foto" => $imgUrl,
                 "texto" => $text
             ]);
 

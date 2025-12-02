@@ -67,4 +67,34 @@ class SupabaseClient
     {
         return $this->request("/rest/v1/{$table}?{$filter}", 'DELETE');
     }
+
+    public function uploadFile(string $bucket, string $fileName, string $filePath): array
+    {
+        $endpoint = "/storage/v1/object/{$bucket}/{$fileName}";
+
+        $headers = "apikey: {$this->apiKey}\r\nAuthorization: Bearer {$this->apiKey}\r\nContent-Type: application/octet-stream\r\n";
+
+        $options = [
+            "http" => [
+                "header"  => $headers,
+                "method"  => "POST",
+                "content" => file_get_contents($filePath),
+                "ignore_errors" => true,
+            ]
+        ];
+
+        $context = stream_context_create($options);
+        $response = file_get_contents($this->url . $endpoint, false, $context);
+
+        if ($response === false) {
+            return ["success" => false, "message" => "Falha ao enviar arquivo ao Supabase Storage."];
+        }
+
+        return ["success" => true, "response" => json_decode($response, true)];
+    }
+
+    public function getPublicUrl(string $bucket, string $fileName): string
+    {
+        return "{$this->url}/storage/v1/object/public/{$bucket}/{$fileName}";
+    }
 }

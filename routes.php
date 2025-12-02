@@ -19,7 +19,6 @@ $router->get('/quartzos', [ViewController::class, 'quartzos']);
 $router->get('/admin', [ViewController::class, 'login']);
 $router->get('/admin/login', [ViewController::class, 'login']);
 $router->get('/admin/dashboard', [ViewController::class, 'dashboard']);
-$router->get('/admin/conteudo', [ViewController::class, 'adminConteudo']);
 $router->get('/admin/home-edit', [ViewController::class, 'homeEdit']);
 $router->get('/admin/cadastro', [ViewController::class, 'cadastro']);
 

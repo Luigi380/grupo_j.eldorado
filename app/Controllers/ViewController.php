@@ -122,20 +122,6 @@ class ViewController
         readfile($viewPath);
     }
 
-    public function adminConteudo()
-    {
-        AuthMiddleware::checkAuth();
-        $viewPath = __DIR__ . '/../View/Admin/conteudo.html';
-
-        if (!file_exists($viewPath)) {
-            http_response_code(500);
-            echo "Erro: View index.html não encontrada.";
-            return;
-        }
-
-        readfile($viewPath);
-    }
-
     public function homeEdit()
     {
         AuthMiddleware::checkAuth();

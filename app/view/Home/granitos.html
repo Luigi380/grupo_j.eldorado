@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Granitos</title>
+    <title>Granitos - Marmoraria J.Eldorado</title>
 
     <link rel="stylesheet" href="/grupo_j.eldorado/public/css/style.css" />
     <link rel="stylesheet" href="/grupo_j.eldorado/public/css/font.css" />
@@ -13,10 +13,18 @@
     />
     <link
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
       href="/grupo_j.eldorado/public/css/home/granitos.css"
     />
     <script
       src="/grupo_j.eldorado/public/js/home/home_footer.js"
+      defer
+    ></script>
+    <script
+      src="/grupo_j.eldorado/public/js/home/load-granitos.js"
       defer
     ></script>
   </head>
@@ -25,7 +33,9 @@
     <header>
       <nav>
         <ul>
-          <li><a href="#materiais">Rochas Naturais</a></li>
+          <li>
+            <a href="/grupo_j.eldorado/public/materiais">Rochas Naturais</a>
+          </li>
           <li><a href="">Importadas</a></li>
         </ul>
       </nav>
@@ -52,76 +62,15 @@
       </div>
     </section>
 
+    <!-- O conteúdo será carregado dinamicamente via JavaScript -->
     <main class="container content-list py-5">
-      <article class="row align-items-center mb-5 marble-item">
-        <div class="col-md-7">
-          <h3 class="marble-name">Preto São Gabriel</h3>
-          <p class="marble-desc">
-            O Granito Preto São Gabriel é uma das pedras mais usadas no Brasil
-            devido à sua combinação de resistência, beleza e versatilidade. Seu
-            fundo preto homogêneo, com pequenos pontos discretos, transmite
-            modernidade e combina com praticamente qualquer estilo de decoração.
-            Por ser muito resistente ao calor, riscos e manchas, é amplamente
-            utilizado em cozinhas, áreas externas, churrasqueiras, escadas e
-            banheiros, sendo uma das opções mais práticas e duráveis do mercado.
-          </p>
+      <!-- Loading inicial -->
+      <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Carregando...</span>
         </div>
-        <div class="col-md-5 d-flex justify-content-end">
-          <div class="marble-image shadow">
-            <img
-              src="/grupo_j.eldorado/public/img/granitos/image 8.png"
-              alt="Preto São Gabriel"
-            />
-          </div>
-        </div>
-      </article>
-
-      <article class="row align-items-center mb-5 marble-item">
-        <div class="col-md-7 order-md-1">
-          <h3 class="marble-name">Branco Dallas</h3>
-          <p class="marble-desc">
-            O Granito Branco Dallas apresenta um fundo claro com nuances de
-            marrom, cinza e preto, formando um desenho natural e levemente
-            granulado. Ele cria ambientes luminosos sem o custo mais elevado das
-            superfícies totalmente brancas. Por ter alta resistência, é muito
-            utilizado em cozinhas, áreas gourmets, banheiros e lavanderias. Sua
-            aparência suave combina com projetos modernos, rústicos ou
-            tradicionais, trazendo naturalidade e leveza aos espaços.
-          </p>
-        </div>
-        <div class="col-md-5 d-flex justify-content-end">
-          <div class="marble-image shadow">
-            <img
-              src="/grupo_j.eldorado/public/img/granitos/image 9.png"
-              alt="Branco Dallas"
-            />
-          </div>
-        </div>
-      </article>
-
-      <article class="row align-items-center mb-5 marble-item">
-        <div class="col-md-7">
-          <h3 class="marble-name">Verde Ubatuba</h3>
-          <p class="marble-desc">
-            O Granito Verde Ubatuba possui um tom verde tão escuro que muitas
-            vezes parece preto, mas revela pontos dourados e verdes quando
-            iluminado. É um granito clássico e extremamente resistente, ideal
-            para cozinhas, áreas externas, fachadas, churrasqueiras e locais de
-            uso intenso. Seu custo-benefício é excelente, e sua durabilidade faz
-            com que seja uma escolha frequente tanto em residências quanto em
-            estabelecimentos comerciais. O brilho natural da pedra acrescenta um
-            toque elegante sem perder a sensação de robustez.
-          </p>
-        </div>
-        <div class="col-md-5 d-flex justify-content-end">
-          <div class="marble-image shadow">
-            <img
-              src="/grupo_j.eldorado/public/img/granitos/image 10.png"
-              alt="Verde Ubatuba"
-            />
-          </div>
-        </div>
-      </article>
+        <p class="mt-3 text-muted">Carregando granitos...</p>
+      </div>
     </main>
 
     <!-- Footer igual às outras páginas -->
@@ -132,8 +81,9 @@
           reservados.
         </p>
         <p class="footer-links">
-          <a href="#">Política de Privacidade</a> · <a href="#">Termos</a> ·
-          <a href="#">Contato</a>
+          <a href="/grupo_j.eldorado/public/">Home</a> ·
+          <a href="/grupo_j.eldorado/public/materiais">Materiais</a> ·
+          <a href="#contato">Contato</a>
         </p>
       </div>
     </footer>

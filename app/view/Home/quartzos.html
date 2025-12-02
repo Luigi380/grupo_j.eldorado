@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Granitos</title>
+    <title>Quartzos - Marmoraria J.Eldorado</title>
 
     <link rel="stylesheet" href="/grupo_j.eldorado/public/css/style.css" />
     <link rel="stylesheet" href="/grupo_j.eldorado/public/css/font.css" />
@@ -13,10 +13,18 @@
     />
     <link
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
       href="/grupo_j.eldorado/public/css/home/quatzo.css"
     />
     <script
       src="/grupo_j.eldorado/public/js/home/home_footer.js"
+      defer
+    ></script>
+    <script
+      src="/grupo_j.eldorado/public/js/home/load-quartzos.js"
       defer
     ></script>
   </head>
@@ -25,7 +33,9 @@
     <header>
       <nav>
         <ul>
-          <li><a href="#materiais">Rochas Naturais</a></li>
+          <li>
+            <a href="/grupo_j.eldorado/public/materiais">Rochas Naturais</a>
+          </li>
           <li><a href="">Importadas</a></li>
         </ul>
       </nav>
@@ -52,83 +62,15 @@
       </div>
     </section>
 
+    <!-- O conteúdo será carregado dinamicamente via JavaScript -->
     <main class="container content-list py-5">
-      <article class="row align-items-center mb-5 marble-item">
-        <div class="col-md-7">
-          <h3 class="marble-name">Branco Stellar</h3>
-          <p class="marble-desc">
-            O Quartzo Branco Stellar é uma superfície moderna que se destaca
-            pelo fundo branco iluminado e pelos pequenos pontos brilhantes
-            distribuídos por toda a peça. Essa característica dá ao ambiente um
-            aspecto vibrante e sofisticado. Por ser altamente resistente, não
-            poroso e fácil de limpar, é perfeito para cozinhas, áreas gourmets e
-            lavanderias, locais onde a funcionalidade precisa caminhar junto da
-            estética. É uma escolha ideal para quem gosta de ambientes claros,
-            minimalistas e com aparência sempre renovada.
-          </p>
+      <!-- Loading inicial -->
+      <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Carregando...</span>
         </div>
-        <div class="col-md-5 d-flex justify-content-end">
-          <div class="marble-image shadow">
-            <img
-              src="/grupo_j.eldorado/public/img/quartzos/image_5.png"
-              alt=""
-            />
-          </div>
-        </div>
-      </article>
-
-      <article class="row align-items-center mb-5 marble-item">
-        <div class="col-md-7 order-md-1">
-          <h3 class="marble-name">Calacatta Gold</h3>
-          <p class="marble-desc">
-            O Quartzo Calacatta Gold une tecnologia e beleza natural. Ele imita
-            o visual dos mármores italianos de forma muito fiel, trazendo um
-            fundo branco elegante cortado por veios dourados e acinzentados. Sua
-            grande vantagem é oferecer o visual luxuoso do mármore com a
-            resistência superior do quartzo industrializado. Por isso, é muito
-            usado em cozinhas premium, painéis internos e bancadas de banheiro,
-            garantindo durabilidade, higiene e sofisticação ao mesmo tempo.
-          </p>
-        </div>
-        <div class="col-md-5 d-flex justify-content-end">
-          <div class="marble-image shadow">
-            <img
-              src="/grupo_j.eldorado/public/img/quartzos/image_6.png"
-              alt=""
-            />
-          </div>
-        </div>
-      </article>
-
-      <article class="row align-items-center mb-5 marble-item">
-        <div class="col-md-7">
-          <h3 class="marble-name">Cinza Urbano</h3>
-          <p class="marble-desc">
-            O Granito Verde Ubatuba possui um tom verde tão escuro que muitas
-            vezes parece preto, mas revela pontos dourados e verdes quando
-            iluminado. É um granito clássico e extremamente resistente, ideal
-            para cozinhas, áreas externas, fachadas, churrasqueiras e locais de
-            uso intenso. Seu custo-benefício é excelente, e sua durabilidade faz
-            com que seja uma escolha frequente tanto em residências quanto em
-            estabelecimentos comerciais. O brilho natural da pedra acrescenta um
-            toque O Quartzo Cinza Urbano possui um visual moderno e sóbrio, com
-            tonalidade cinza uniforme. É ideal para projetos contemporâneos,
-            minimalistas e ambientes corporativos que buscam elegância discreta.
-            Além da aparência sofisticada, sua resistência a manchas, impactos e
-            riscos o torna uma escolha excelente para cozinhas planejadas,
-            escritórios, banheiros e áreas de serviço. Ele agrega praticidade ao
-            dia a dia sem abrir mão de uma estética atual e profissional.
-          </p>
-        </div>
-        <div class="col-md-5 d-flex justify-content-end">
-          <div class="marble-image shadow">
-            <img
-              src="/grupo_j.eldorado/public/img/quartzos/image_7.png"
-              alt=""
-            />
-          </div>
-        </div>
-      </article>
+        <p class="mt-3 text-muted">Carregando quartzos...</p>
+      </div>
     </main>
 
     <!-- Footer igual às outras páginas -->
@@ -139,8 +81,9 @@
           reservados.
         </p>
         <p class="footer-links">
-          <a href="#">Política de Privacidade</a> · <a href="#">Termos</a> ·
-          <a href="#">Contato</a>
+          <a href="/grupo_j.eldorado/public/">Home</a> ·
+          <a href="/grupo_j.eldorado/public/materiais">Materiais</a> ·
+          <a href="#contato">Contato</a>
         </p>
       </div>
     </footer>

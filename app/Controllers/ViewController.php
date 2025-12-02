@@ -176,4 +176,18 @@ class ViewController
 
         readfile($viewPath);
     }
+
+    public function gerenciarMateriais()
+    {
+        AuthMiddleware::checkAuth();
+        $viewPath = __DIR__ . '/../View/Admin/gerenciar-materiais.html';
+
+        if (!file_exists($viewPath)) {
+            http_response_code(500);
+            echo "Erro: View index.html não encontrada.";
+            return;
+        }
+
+        readfile($viewPath);
+    }
 }

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciar Materiais - Admin</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/grupo_j.eldorado/public/css/admin_css/dashboard.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/grupo_j.eldorado/public/css/admin_css/gerenciar-materiais.css"
+    />
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      defer
+    ></script>
+    <script src="/grupo_j.eldorado/public/js/auth/logout.js" defer></script>
+    <script
+      src="/grupo_j.eldorado/public/js/auth/gerenciar-materiais.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <section class="section_dashboard">
+      <div class="dashboard_container container-fluid">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <div class="admin_header d-flex align-items-center gap-2">
+            <i class="fa-solid fa-sitemap icon-logo"></i>
+            <div class="admin_info">
+              <h2>Admin</h2>
+              <p>Painel de administração</p>
+            </div>
+          </div>
+
+          <ul class="nav flex-column mb-3">
+            <li class="nav-item">
+              <a class="nav-link" href="dashboard">
+                <i class="fa-solid fa-arrow-right"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="gerenciar-materiais">
+                <i class="fa-solid fa-gem"></i> Gerenciar Materiais
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="cadastro">
+                <i class="fa-solid fa-user"></i> Cadastrar Admin
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="settings">
+                <i class="fa-solid fa-gear"></i> Configuração
+              </a>
+            </li>
+          </ul>
+
+          <button
+            type="button"
+            id="logoutBtn"
+            class="logout-btn btn btn-outline-secondary"
+          >
+            <i class="fa-solid fa-arrow-left"></i> Sair
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="dashboard_content mt-4">
+          <div
+            class="dashboard_header mb-4 d-flex justify-content-between align-items-center"
+          >
+            <h1><i class="fa-solid fa-gem me-2"></i>Gerenciar Materiais</h1>
+            <button
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#addMaterialModal"
+            >
+              <i class="fa-solid fa-plus me-2"></i>Adicionar Material
+            </button>
+          </div>
+
+          <!-- Filtros por Tipo -->
+          <div class="filter-tabs">
+            <button class="btn btn-outline-primary active" data-filter="all">
+              <i class="fa-solid fa-list me-1"></i>Todos
+            </button>
+            <button class="btn btn-outline-success" data-filter="Granito">
+              <i class="fa-solid fa-mountain me-1"></i>Granitos
+            </button>
+            <button class="btn btn-outline-info" data-filter="Mármore">
+              <i class="fa-solid fa-layer-group me-1"></i>Mármores
+            </button>
+            <button class="btn btn-outline-warning" data-filter="Quartzo">
+              <i class="fa-solid fa-gem me-1"></i>Quartzos
+            </button>
+          </div>
+
+          <!-- Loading State -->
+          <div id="loadingState" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Carregando...</span>
+            </div>
+            <p class="mt-3 text-muted">Carregando materiais...</p>
+          </div>
+
+          <!-- Empty State -->
+          <div id="emptyState" class="text-center py-5 d-none">
+            <i class="fa-solid fa-box-open fa-4x text-muted mb-3"></i>
+            <h5 class="text-muted">Nenhum material cadastrado</h5>
+            <p class="text-muted">Adicione o primeiro material ao catálogo.</p>
+          </div>
+
+          <!-- Materials Grid -->
+          <div id="materialsGrid" class="row g-4 d-none"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal: Adicionar Material -->
+    <div
+      class="modal fade"
+      id="addMaterialModal"
+      tabindex="-1"
+      aria-labelledby="addMaterialModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addMaterialModalLabel">
+              <i class="fa-solid fa-plus me-2"></i>Adicionar Novo Material
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="addMaterialForm">
+              <div class="mb-3">
+                <label for="materialTipo" class="form-label"
+                  >Tipo de Material</label
+                >
+                <select class="form-select" id="materialTipo" required>
+                  <option value="">Selecione...</option>
+                  <option value="Granito">Granito</option>
+                  <option value="Mármore">Mármore</option>
+                  <option value="Quartzo">Quartzo</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="materialNome" class="form-label"
+                  >Nome do Material</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="materialNome"
+                  placeholder="Ex: Branco Stellar"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="materialTexto" class="form-label">Descrição</label>
+                <textarea
+                  class="form-control"
+                  id="materialTexto"
+                  rows="4"
+                  placeholder="Descreva as características do material..."
+                  required
+                ></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Imagem do Material</label>
+                <div class="upload-area" id="uploadArea">
+                  <i
+                    class="fa-solid fa-cloud-arrow-up fa-3x text-muted mb-3"
+                  ></i>
+                  <p class="mb-2">Clique ou arraste uma imagem aqui</p>
+                  <small class="text-muted">PNG, JPG ou JPEG (máx. 5MB)</small>
+                  <input
+                    type="file"
+                    id="materialFoto"
+                    accept="image/*"
+                    class="d-none"
+                    required
+                  />
+                </div>
+                <div id="imagePreview" class="mt-3 d-none text-center">
+                  <img src="" alt="Preview" class="modal-image-preview" />
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger mt-2"
+                    id="removeImage"
+                  >
+                    <i class="fa-solid fa-trash me-1"></i>Remover
+                  </button>
+                </div>
+              </div>
+
+              <div id="uploadProgress" class="progress d-none mb-3">
+                <div
+                  class="progress-bar progress-bar-striped progress-bar-animated"
+                  role="progressbar"
+                  style="width: 0%"
+                ></div>
+              </div>
+
+              <div class="alert alert-danger d-none" id="addErrorAlert"></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="button" class="btn btn-primary" id="saveMaterialBtn">
+              <i class="fa-solid fa-save me-2"></i>Salvar Material
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Editar Material -->
+    <div
+      class="modal fade"
+      id="editMaterialModal"
+      tabindex="-1"
+      aria-labelledby="editMaterialModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editMaterialModalLabel">
+              <i class="fa-solid fa-edit me-2"></i>Editar Material
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="editMaterialForm">
+              <input type="hidden" id="editMaterialId" />
+              <input type="hidden" id="editMaterialFotoAtual" />
+
+              <div class="mb-3">
+                <label for="editMaterialTipo" class="form-label"
+                  >Tipo de Material</label
+                >
+                <select class="form-select" id="editMaterialTipo" required>
+                  <option value="">Selecione...</option>
+                  <option value="Granito">Granito</option>
+                  <option value="Mármore">Mármore</option>
+                  <option value="Quartzo">Quartzo</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="editMaterialNome" class="form-label"
+                  >Nome do Material</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editMaterialNome"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="editMaterialTexto" class="form-label"
+                  >Descrição</label
+                >
+                <textarea
+                  class="form-control"
+                  id="editMaterialTexto"
+                  rows="4"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Imagem do Material</label>
+                <div id="editImagePreview" class="text-center mb-3">
+                  <img src="" alt="Imagem atual" class="modal-image-preview" />
+                </div>
+                <div class="upload-area" id="editUploadArea">
+                  <i
+                    class="fa-solid fa-cloud-arrow-up fa-2x text-muted mb-2"
+                  ></i>
+                  <p class="mb-0">Clique para alterar a imagem</p>
+                  <input
+                    type="file"
+                    id="editMaterialFoto"
+                    accept="image/*"
+                    class="d-none"
+                  />
+                </div>
+              </div>
+
+              <div id="editUploadProgress" class="progress d-none mb-3">
+                <div
+                  class="progress-bar progress-bar-striped progress-bar-animated"
+                  role="progressbar"
+                  style="width: 0%"
+                ></div>
+              </div>
+
+              <div class="alert alert-danger d-none" id="editErrorAlert"></div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="updateMaterialBtn"
+            >
+              <i class="fa-solid fa-save me-2"></i>Atualizar Material
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

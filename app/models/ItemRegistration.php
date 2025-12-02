@@ -18,40 +18,57 @@ class ItemRegistration
     /**
      * Salva um novo item no banco de dados
      */
-    public function saveItem(string $text, string $imgUrl, string $name)
+    public function saveItem(string $text, string $imgUrl, string $name, string $tipo)
     {
         try {
             $insert = $this->supabase->insert("cadastrar_itens", [
                 "id_adm" => $this->adminId,
                 "nome" => $name,
                 "foto" => $imgUrl,
-                "texto" => $text
+                "texto" => $text,
+                "tipo" => $tipo
             ]);
 
             return [
                 "error" => false,
-                "message" => "Cadastro do item realizado com sucesso", // FIX: corrigido typo "Cadatro"
+                "message" => "Cadastro do item realizado com sucesso",
                 "data" => $insert
             ];
         } catch (\Exception $e) {
             return [
-                "error" => true, // FIX: corrigido para true quando há erro
+                "error" => true,
                 "message" => "Erro ao salvar item: " . $e->getMessage()
             ];
         }
     }
 
     /**
-     * Lista todos os itens
+     * Lista todos os itens com informações do admin (JOIN)
      */
     public function listAll()
     {
         try {
-            $items = $this->supabase->get("cadastrar_itens");
+            // Usando select com JOIN implícito do Supabase
+            // A sintaxe é: tabela_relacionada(campos)
+            $items = $this->supabase->get("cadastrar_itens?select=*,login_admin(email)");
+
+            // Transformar o resultado para incluir o email do admin diretamente
+            $formattedItems = [];
+            foreach ($items as $item) {
+                $formattedItems[] = [
+                    "id_itens" => $item["id_itens"],
+                    "nome" => $item["nome"],
+                    "texto" => $item["texto"],
+                    "foto" => $item["foto"],
+                    "tipo" => $item["tipo"] ?? null,
+                    "id_adm" => $item["id_adm"],
+                    "admin_email" => $item["login_admin"]["email"] ?? "N/A"
+                ];
+            }
 
             return [
                 "error" => false,
-                "data" => $items
+                "data" => $formattedItems
             ];
         } catch (\Exception $e) {
             return [
@@ -67,11 +84,28 @@ class ItemRegistration
     public function listByAdmin()
     {
         try {
-            $items = $this->supabase->getWhere("cadastrar_itens", "id_adm=eq.{$this->adminId}");
+            $items = $this->supabase->getWhere(
+                "cadastrar_itens?select=*,login_admin(email)",
+                "id_adm=eq.{$this->adminId}"
+            );
+
+            // Formatar resultado
+            $formattedItems = [];
+            foreach ($items as $item) {
+                $formattedItems[] = [
+                    "id_itens" => $item["id_itens"],
+                    "nome" => $item["nome"],
+                    "texto" => $item["texto"],
+                    "foto" => $item["foto"],
+                    "tipo" => $item["tipo"] ?? null,
+                    "id_adm" => $item["id_adm"],
+                    "admin_email" => $item["login_admin"]["email"] ?? "N/A"
+                ];
+            }
 
             return [
                 "error" => false,
-                "data" => $items
+                "data" => $formattedItems
             ];
         } catch (\Exception $e) {
             return [
@@ -87,7 +121,10 @@ class ItemRegistration
     public function findById(string $id)
     {
         try {
-            $item = $this->supabase->getWhere("cadastrar_itens", "id=eq.$id");
+            $item = $this->supabase->getWhere(
+                "cadastrar_itens?select=*,login_admin(email)",
+                "id_itens=eq.$id"
+            );
 
             if (empty($item)) {
                 return [
@@ -96,9 +133,21 @@ class ItemRegistration
                 ];
             }
 
+            // Formatar resultado
+            $itemData = $item[0];
+            $formatted = [
+                "id_itens" => $itemData["id_itens"],
+                "nome" => $itemData["nome"],
+                "texto" => $itemData["texto"],
+                "foto" => $itemData["foto"],
+                "tipo" => $itemData["tipo"] ?? null,
+                "id_adm" => $itemData["id_adm"],
+                "admin_email" => $itemData["login_admin"]["email"] ?? "N/A"
+            ];
+
             return [
                 "error" => false,
-                "data" => $item[0]
+                "data" => $formatted
             ];
         } catch (\Exception $e) {
             return [
@@ -111,7 +160,7 @@ class ItemRegistration
     /**
      * Atualiza um item
      */
-    public function updateItem(string $id, string $text, string $imgUrl, string $name)
+    public function updateItem(string $id, string $text, string $imgUrl, string $name, string $tipo)
     {
         try {
             // Verifica se o item pertence ao admin atual
@@ -131,8 +180,9 @@ class ItemRegistration
             $update = $this->supabase->update("cadastrar_itens", [
                 "nome" => $name,
                 "foto" => $imgUrl,
-                "texto" => $text
-            ], "id=eq.$id");
+                "texto" => $text,
+                "tipo" => $tipo
+            ], "id_itens=eq.$id");
 
             return [
                 "error" => false,
@@ -167,7 +217,7 @@ class ItemRegistration
                 ];
             }
 
-            $this->supabase->delete("cadastrar_itens", "id=eq.$id");
+            $this->supabase->delete("cadastrar_itens", "id_itens=eq.$id");
 
             return [
                 "error" => false,

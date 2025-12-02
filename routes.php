@@ -4,6 +4,7 @@ use App\Core\Router;
 use App\Controllers\AdminController;
 use App\Controllers\ItemsController;
 use App\Controllers\ViewController;
+use App\Controllers\PublicMaterialsController;
 
 $router = new Router('/grupo_j.eldorado/public');
 
@@ -23,6 +24,7 @@ $router->get('/admin/dashboard', [ViewController::class, 'dashboard']);
 $router->get('/admin/home-edit', [ViewController::class, 'homeEdit']);
 $router->get('/admin/cadastro', [ViewController::class, 'cadastro']);
 $router->get('/admin/settings', [ViewController::class, 'settings']);
+$router->get('/admin/gerenciar-materiais', [ViewController::class, 'gerenciarMateriais']);
 
 //Rotas BackEnd Admin
 $router->post('/admin/login', [AdminController::class, 'login']);
@@ -35,10 +37,16 @@ $router->put('/admin/update-email', [AdminController::class, 'updateEmail']);
 $router->put('/admin/update-password', [AdminController::class, 'updatePassword']);
 
 //Rotas BackEnd Items
+$router->post('/admin/upload-imagem', [ItemsController::class, 'uploadImage']);
 $router->post('/admin/item/cadastrar', [ItemsController::class, 'create']);
 $router->get('/admin/item/listar', [ItemsController::class, 'list']);
 $router->get('/admin/item/exibir/{id}', [ItemsController::class, 'show']);
-$router->put('/admin/item/atualizar/{id}', [ItemsController::class, 'update']);
+$router->post('/admin/item/atualizar/{id}', [ItemsController::class, 'update']); // Mudado para POST para facilitar
 $router->delete('/admin/item/deletar/{id}', [ItemsController::class, 'delete']);
+
+//Rotas Públicas de Materiais (Não requer autenticação - apenas leitura)
+$router->get('/api/materiais/publico/listar', [PublicMaterialsController::class, 'list']);
+$router->get('/api/materiais/publico/todos', [PublicMaterialsController::class, 'listAll']);
+$router->get('/api/materiais/publico/detalhes/{id}', [PublicMaterialsController::class, 'show']);
 
 return $router;

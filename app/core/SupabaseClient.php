@@ -73,31 +73,82 @@ class SupabaseClient
         return $this->request("/rest/v1/{$table}?{$filter}", 'DELETE');
     }
 
+    /**
+     * Upload de arquivo para o Supabase Storage
+     */
     public function uploadFile(string $bucket, string $fileName, string $filePath): array
     {
-        $endpoint = "/storage/v1/object/{$bucket}/{$fileName}";
+        try {
+            $endpoint = "/storage/v1/object/{$bucket}/{$fileName}";
 
-        $headers = "apikey: {$this->apiKey}\r\nAuthorization: Bearer {$this->apiKey}\r\nContent-Type: application/octet-stream\r\n";
+            // Ler o conteúdo do arquivo
+            $fileContent = file_get_contents($filePath);
+            if ($fileContent === false) {
+                return [
+                    "success" => false,
+                    "message" => "Não foi possível ler o arquivo"
+                ];
+            }
 
-        $options = [
-            "http" => [
-                "header"  => $headers,
-                "method"  => "POST",
-                "content" => file_get_contents($filePath),
-                "ignore_errors" => true,
-            ]
-        ];
+            // Detectar o tipo MIME
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $filePath);
+            finfo_close($finfo);
 
-        $context = stream_context_create($options);
-        $response = file_get_contents($this->url . $endpoint, false, $context);
+            // Headers corretos para upload
+            $headers = [
+                "apikey: {$this->apiKey}",
+                "Authorization: Bearer {$this->apiKey}",
+                "Content-Type: {$mimeType}",
+                "Content-Length: " . strlen($fileContent)
+            ];
 
-        if ($response === false) {
-            return ["success" => false, "message" => "Falha ao enviar arquivo ao Supabase Storage."];
+            // Usar cURL para melhor controle
+            $ch = curl_init($this->url . $endpoint);
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $fileContent);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+
+            $response = curl_exec($ch);
+            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+            if (curl_errno($ch)) {
+                $error = curl_error($ch);
+                curl_close($ch);
+                return [
+                    "success" => false,
+                    "message" => "Erro cURL: {$error}"
+                ];
+            }
+
+            curl_close($ch);
+
+            // Verificar resposta
+            if ($httpCode >= 200 && $httpCode < 300) {
+                return [
+                    "success" => true,
+                    "response" => json_decode($response, true),
+                    "message" => "Upload realizado com sucesso"
+                ];
+            } else {
+                return [
+                    "success" => false,
+                    "message" => "Erro HTTP {$httpCode}: {$response}"
+                ];
+            }
+        } catch (\Exception $e) {
+            return [
+                "success" => false,
+                "message" => "Exceção: " . $e->getMessage()
+            ];
         }
-
-        return ["success" => true, "response" => json_decode($response, true)];
     }
 
+    /**
+     * Retorna a URL pública de um arquivo
+     */
     public function getPublicUrl(string $bucket, string $fileName): string
     {
         return "{$this->url}/storage/v1/object/public/{$bucket}/{$fileName}";

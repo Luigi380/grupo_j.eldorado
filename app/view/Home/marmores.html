@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mármores</title>
+    <title>Mármores - Marmoraria J.Eldorado</title>
 
     <link rel="stylesheet" href="/grupo_j.eldorado/public/css/style.css" />
     <link rel="stylesheet" href="/grupo_j.eldorado/public/css/font.css" />
@@ -13,10 +13,18 @@
     />
     <link
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
       href="/grupo_j.eldorado/public/css/home/marmores.css"
     />
     <script
       src="/grupo_j.eldorado/public/js/home/home_footer.js"
+      defer
+    ></script>
+    <script
+      src="/grupo_j.eldorado/public/js/home/load-marmores.js"
       defer
     ></script>
   </head>
@@ -25,7 +33,9 @@
     <header>
       <nav>
         <ul>
-          <li><a href="#materiais">Rochas Naturais</a></li>
+          <li>
+            <a href="/grupo_j.eldorado/public/materiais">Rochas Naturais</a>
+          </li>
           <li><a href="">Importadas</a></li>
         </ul>
       </nav>
@@ -52,65 +62,15 @@
       </div>
     </section>
 
+    <!-- O conteúdo será carregado dinamicamente via JavaScript -->
     <main class="container content-list py-5">
-      <article class="row align-items-center mb-5 marble-item">
-        <div class="col-md-7">
-          <h3 class="marble-name">Carrara</h3>
-          <p class="marble-desc">
-            O Mármore Carrara é conhecido mundialmente pela sua elegância
-            clássica. Com fundo branco acinzentado e veios suaves, ele traz
-            leveza e um visual limpo aos ambientes. Muito utilizado em bancadas
-            e revestimentos internos por seu aspecto refinado.
-          </p>
+      <!-- Loading inicial -->
+      <div class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Carregando...</span>
         </div>
-        <div class="col-md-5 d-flex justify-content-end">
-          <div class="marble-image shadow">
-            <img
-              src="/grupo_j.eldorado/public/img/marmores/image 2.png"
-              alt="Carrara"
-            />
-          </div>
-        </div>
-      </article>
-
-      <article class="row align-items-center mb-5 marble-item">
-        <div class="col-md-7 order-md-1">
-          <h3 class="marble-name">Calacatta</h3>
-          <p class="marble-desc">
-            Considerado um dos mais luxuosos do mundo, o Calacatta possui fundo
-            branco puro e veios marcantes. Indicado para projetos de alto
-            padrão, ele transforma ambientes e chama atenção por seu contraste
-            elegante.
-          </p>
-        </div>
-        <div class="col-md-5 d-flex justify-content-end">
-          <div class="marble-image shadow">
-            <img
-              src="/grupo_j.eldorado/public/img/marmores/image 3.png"
-              alt="Calacatta"
-            />
-          </div>
-        </div>
-      </article>
-
-      <article class="row align-items-center mb-5 marble-item">
-        <div class="col-md-7">
-          <h3 class="marble-name">Crema Marfil</h3>
-          <p class="marble-desc">
-            Apresenta coloração bege clara que transmite suavidade e harmonia.
-            Versátil, combina com diversos estilos de decoração e é muito
-            utilizado em pisos e revestimentos que pedem um tom mais quente.
-          </p>
-        </div>
-        <div class="col-md-5 d-flex justify-content-end">
-          <div class="marble-image shadow">
-            <img
-              src="/grupo_j.eldorado/public/img/marmores/image 4.png"
-              alt="Crema Marfil"
-            />
-          </div>
-        </div>
-      </article>
+        <p class="mt-3 text-muted">Carregando mármores...</p>
+      </div>
     </main>
 
     <!-- Footer igual às outras páginas -->
@@ -121,8 +81,9 @@
           reservados.
         </p>
         <p class="footer-links">
-          <a href="#">Política de Privacidade</a> · <a href="#">Termos</a> ·
-          <a href="#">Contato</a>
+          <a href="/grupo_j.eldorado/public/">Home</a> ·
+          <a href="/grupo_j.eldorado/public/materiais">Materiais</a> ·
+          <a href="#contato">Contato</a>
         </p>
       </div>
     </footer>

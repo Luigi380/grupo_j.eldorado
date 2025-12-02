@@ -86,6 +86,19 @@ class ViewController
         readfile($viewPath);
     }
 
+    public function sobreNos()
+    {
+        $viewPath = __DIR__ . '/../View/Home/sobreNos.html';
+
+        if (!file_exists($viewPath)) {
+            http_response_code(500);
+            echo "Erro: View index.html não encontrada.";
+            return;
+        }
+
+        readfile($viewPath);
+    }
+
     public function login()
     {
         if (session_status() === PHP_SESSION_NONE) {

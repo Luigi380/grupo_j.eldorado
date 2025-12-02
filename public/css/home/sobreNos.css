@@ -1,0 +1,261 @@
+/* public/css/sobreNos.css */
+:root{
+  --marble-title-color: #fff1df;
+  --font-sans: Arial, Helvetica, sans-serif;
+}
+/* Reset básico */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,body { height: 100%; }
+
+body {
+  font-family: var(--font-sans);
+  color: #222;
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* HEADER - estilos copiados do CSS principal (index.html) */
+header {
+  display: flex;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  padding: 12px 5%;
+  gap: 12px;
+}
+
+header nav {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+
+header nav:last-of-type {
+  justify-content: flex-end;
+}
+
+header .logo{
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+
+}
+
+header ul {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+  align-items: center;
+  height: 100%;
+}
+
+header ul li {
+  display: flex;
+  position: relative;
+  align-items: center;
+  height: 100%;
+  
+}
+
+header ul li {
+  position: relative; 
+  padding: 0;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  font-size: 1rem;
+  padding: 6px 8px; /* aumenta área clicável */
+  transition: color 0.2s ease, font-weight 0.2s ease; /* uma leve animação na mudança de cor da lista */
+  
+}
+
+header nav ul li a:hover {
+  font-weight: bold;
+  color: rgb(255, 217, 0);
+}
+
+
+header img {
+  width: 160px;
+  max-width: 40%;
+  height: auto;
+  margin-left: 2%;
+}
+
+/* Hero */
+.hero {
+  background: var(--marble-title-color);
+  padding: 1%;
+  border-bottom: 1px solid rgba(0,0,0,0.02);
+}
+
+.hero-inner {
+  max-width:1100px;
+  margin:0 auto;
+  padding:0 20px;
+  text-align:center;
+}
+
+.hero h1 {
+  font-size:40px;
+  font-weight:400;
+  color:#5b4b2a;
+  letter-spacing:1px;
+}
+
+/* Container */
+.container {
+  max-width:1100px;
+  margin:40px auto;
+  padding:0 20px 80px;
+}
+
+/* Sections */
+.section { margin-bottom:48px; }
+
+.two-col {
+  display:flex;
+  gap:32px;
+  align-items:center;
+}
+
+.two-col.reverse { flex-direction:row-reverse; }
+
+.col { flex:1; }
+
+.col.text h2 {
+  font-size:28px;
+  margin-bottom:16px;
+  color:#222;
+}
+
+.col.text p {
+  color:#333;
+  font-size:16px;
+  margin-bottom:12px;
+}
+
+/* Media / Imagens */
+.col.media {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.col.media img {
+  width:100%;
+  max-width:520px;
+  border-radius:10px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.06);
+  object-fit:cover;
+}
+
+/* Values */
+.values-inner {
+  text-align:center;
+  max-width:800px;
+  margin:0 auto;
+}
+
+.values-inner h2 {
+  font-size:26px;
+  margin-bottom:18px;
+}
+
+.values-inner p {
+  margin-bottom:10px;
+  color:#444;
+}
+
+/* FOOTER - por padrão estático; pode ficar 'flutuante' ao rolar */
+.site-footer{
+  position: static; /* fica no fluxo do documento por padrão */
+  width: 100%; /* ocupa toda a largura da tela */
+  margin:0; /* sem margens laterais */
+  background-color: #000;
+  color: #fff;
+  padding: 20px ;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+}
+.site-footer .container_footer{
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+.site-footer p{
+  margin: 4px 0;
+}
+.site-footer a{
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.9;
+}
+.site-footer a:hover{
+  opacity: 1;
+  text-decoration: underline;
+}
+
+/* footer é estático por padrão; não há comportamento flutuante */
+/* Responsividade: em telas pequenas */
+@media (max-width: 768px){
+  header{
+    flex-direction: column;
+    height: auto;
+    gap: 12px;
+    padding: 15px;
+  }
+
+  header .logo{
+    height: 50px;
+  }
+
+  .carrossel_placeholder{
+    height: 250px;
+  }
+
+  .section_materials .container_materials,
+  .section_projects .container_projects{
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .section_quality .container_quality,
+  .section_about .container_about{
+    flex-direction: column;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .section_materials .materials_images img,
+  .section_projects .project_content img{
+    max-width: 100%;
+    
+  }
+  .section_quality .quality_images img,
+  .section_about .about_images img{
+    max-width: 100%;
+  }
+  /* reduz a logo na barra preta em telas pequenas */
+  .images_marmoraria img{
+    max-width: 180px;
+  }
+  .section_materials .content_materials h2,
+  .section_projects .project_content h2{
+    font-size: 2rem;
+  }
+}
+
+/* fim do arquivo - footer permanece estático no fluxo do documento */
+
+

@@ -38,9 +38,22 @@ class Admin
         ]);
     }
 
-    public function delete(int $id)
+    public function delete(string $id)
     {
-        return $this->supabase->delete("login_admin", "id_adm=eq.$id");
+        try {
+            $result = $this->supabase->delete("login_admin", "id_adm=eq.$id");
+
+            return [
+                "error" => false,
+                "message" => "Administrador deletado com sucesso",
+                "id" => $id
+            ];
+        } catch (\Exception $e) {
+            return [
+                "error" => true,
+                "message" => "Erro ao deletar: " . $e->getMessage()
+            ];
+        }
     }
 
     public function verifyCredentials(string $email, string $password)

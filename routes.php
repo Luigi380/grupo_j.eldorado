@@ -14,7 +14,7 @@ $router->get('/ultimos-trabalhos', [ViewController::class, 'ultimosTrabalhos']);
 $router->get('/granitos', [ViewController::class, 'granitos']);
 $router->get('/marmores', [ViewController::class, 'marmores']);
 $router->get('/quartzos', [ViewController::class, 'quartzos']);
-$router->get('/sobreNos', [ViewController::class, 'sobreNos']);
+$router->get('/sobre', [ViewController::class, 'sobreNos']);
 
 //View Admin
 $router->get('/admin', [ViewController::class, 'login']);

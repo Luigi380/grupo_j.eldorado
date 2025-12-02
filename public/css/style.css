@@ -295,8 +295,8 @@ header img {
 }
 
 .section_quality .quality_images img{
-  width: 100%;
-  max-width: 420px;
+  width: 90%;
+  max-width: 320px;
   height: auto;
   border-radius: 8px;
 }

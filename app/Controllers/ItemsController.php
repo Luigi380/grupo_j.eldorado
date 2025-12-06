@@ -3,12 +3,11 @@
 namespace App\Controllers;
 
 use App\Models\ItemRegistration;
-use App\Core\SupabaseClient;
 
 class ItemsController
 {
     /**
-     * Faz upload de imagem para o Supabase Storage
+     * Faz upload de imagem LOCALMENTE (mais simples, sem Supabase Storage)
      */
     public function uploadImage()
     {
@@ -39,15 +38,14 @@ class ItemsController
         }
 
         $file = $_FILES['file'];
-        $bucket = $_POST['bucket'] ?? 'imagens_itens';
 
         // Validações
-        $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+        $allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
         if (!in_array($file['type'], $allowedTypes)) {
             http_response_code(400);
             echo json_encode([
                 "error" => true,
-                "message" => "Tipo de arquivo não permitido. Use PNG, JPG ou JPEG"
+                "message" => "Tipo de arquivo não permitido. Use PNG, JPG, JPEG, GIF ou WEBP"
             ]);
             exit;
         }
@@ -61,22 +59,34 @@ class ItemsController
             exit;
         }
 
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            http_response_code(400);
+            echo json_encode([
+                "error" => true,
+                "message" => "Erro no upload do arquivo: " . $file['error']
+            ]);
+            exit;
+        }
+
         try {
-            $supabase = new SupabaseClient();
+            // Criar diretório de uploads se não existir
+            $uploadDir = __DIR__ . '/../../public/uploads/materiais/';
+            if (!file_exists($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
+            }
 
             // Gerar nome único para o arquivo
             $extension = pathinfo($file['name'], PATHINFO_EXTENSION);
             $fileName = uniqid() . '_' . time() . '.' . $extension;
+            $filePath = $uploadDir . $fileName;
 
-            // Upload para o Supabase Storage
-            $uploadResult = $supabase->uploadFile($bucket, $fileName, $file['tmp_name']);
-
-            if (!$uploadResult['success']) {
-                throw new \Exception($uploadResult['message'] ?? 'Erro ao fazer upload');
+            // Mover arquivo para o diretório de uploads
+            if (!move_uploaded_file($file['tmp_name'], $filePath)) {
+                throw new \Exception("Erro ao salvar o arquivo");
             }
 
-            // Obter URL pública
-            $publicUrl = $supabase->getPublicUrl($bucket, $fileName);
+            // Gerar URL pública
+            $publicUrl = '/grupo_j.eldorado/public/uploads/materiais/' . $fileName;
 
             echo json_encode([
                 "error" => false,
@@ -332,6 +342,20 @@ class ItemsController
         try {
             $adminId = $_SESSION['admin_id'];
             $itemRegistration = new ItemRegistration($adminId);
+
+            // Buscar o item para pegar a URL da imagem
+            $item = $itemRegistration->findById($id);
+
+            if (!$item["error"] && isset($item["data"]["foto"])) {
+                // Tentar deletar a imagem local
+                $fotoUrl = $item["data"]["foto"];
+                if (strpos($fotoUrl, '/uploads/materiais/') !== false) {
+                    $filePath = __DIR__ . '/../../public' . parse_url($fotoUrl, PHP_URL_PATH);
+                    if (file_exists($filePath)) {
+                        @unlink($filePath);
+                    }
+                }
+            }
 
             $result = $itemRegistration->deleteItem($id);
 

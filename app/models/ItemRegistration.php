@@ -48,21 +48,45 @@ class ItemRegistration
     public function listAll()
     {
         try {
-            // Usando select com JOIN implícito do Supabase
-            // A sintaxe é: tabela_relacionada(campos)
-            $items = $this->supabase->get("cadastrar_itens?select=*,login_admin(email)");
+            // Buscar itens sem JOIN primeiro (Supabase REST API tem limitações com joins complexos)
+            $items = $this->supabase->get("cadastrar_itens");
 
-            // Transformar o resultado para incluir o email do admin diretamente
+            if (isset($items['error']) && $items['error'] === true) {
+                throw new \Exception($items['message'] ?? 'Erro ao buscar itens');
+            }
+
+            // Se não for array, retornar vazio
+            if (!is_array($items)) {
+                return [
+                    "error" => false,
+                    "data" => []
+                ];
+            }
+
+            // Buscar emails dos admins
+            $adminEmails = [];
+            foreach ($items as $item) {
+                if (isset($item['id_adm']) && !isset($adminEmails[$item['id_adm']])) {
+                    $admin = $this->supabase->getWhere("login_admin", "id_adm=eq.{$item['id_adm']}");
+                    if (is_array($admin) && !empty($admin)) {
+                        $adminEmails[$item['id_adm']] = $admin[0]['email'] ?? 'N/A';
+                    }
+                }
+            }
+
+            // Transformar o resultado para incluir o email do admin
             $formattedItems = [];
             foreach ($items as $item) {
+                if (!is_array($item)) continue;
+
                 $formattedItems[] = [
-                    "id_itens" => $item["id_itens"],
-                    "nome" => $item["nome"],
-                    "texto" => $item["texto"],
-                    "foto" => $item["foto"],
+                    "id_itens" => $item["id_itens"] ?? null,
+                    "nome" => $item["nome"] ?? '',
+                    "texto" => $item["texto"] ?? '',
+                    "foto" => $item["foto"] ?? '',
                     "tipo" => $item["tipo"] ?? null,
-                    "id_adm" => $item["id_adm"],
-                    "admin_email" => $item["login_admin"]["email"] ?? "N/A"
+                    "id_adm" => $item["id_adm"] ?? null,
+                    "admin_email" => $adminEmails[$item["id_adm"]] ?? "N/A"
                 ];
             }
 
@@ -85,21 +109,38 @@ class ItemRegistration
     {
         try {
             $items = $this->supabase->getWhere(
-                "cadastrar_itens?select=*,login_admin(email)",
+                "cadastrar_itens",
                 "id_adm=eq.{$this->adminId}"
             );
+
+            if (isset($items['error']) && $items['error'] === true) {
+                throw new \Exception($items['message'] ?? 'Erro ao buscar itens');
+            }
+
+            if (!is_array($items)) {
+                return [
+                    "error" => false,
+                    "data" => []
+                ];
+            }
+
+            // Buscar email do admin
+            $admin = $this->supabase->getWhere("login_admin", "id_adm=eq.{$this->adminId}");
+            $adminEmail = (is_array($admin) && !empty($admin)) ? $admin[0]['email'] : 'N/A';
 
             // Formatar resultado
             $formattedItems = [];
             foreach ($items as $item) {
+                if (!is_array($item)) continue;
+
                 $formattedItems[] = [
-                    "id_itens" => $item["id_itens"],
-                    "nome" => $item["nome"],
-                    "texto" => $item["texto"],
-                    "foto" => $item["foto"],
+                    "id_itens" => $item["id_itens"] ?? null,
+                    "nome" => $item["nome"] ?? '',
+                    "texto" => $item["texto"] ?? '',
+                    "foto" => $item["foto"] ?? '',
                     "tipo" => $item["tipo"] ?? null,
-                    "id_adm" => $item["id_adm"],
-                    "admin_email" => $item["login_admin"]["email"] ?? "N/A"
+                    "id_adm" => $item["id_adm"] ?? null,
+                    "admin_email" => $adminEmail
                 ];
             }
 
@@ -122,27 +163,32 @@ class ItemRegistration
     {
         try {
             $item = $this->supabase->getWhere(
-                "cadastrar_itens?select=*,login_admin(email)",
+                "cadastrar_itens",
                 "id_itens=eq.$id"
             );
 
-            if (empty($item)) {
+            if (!is_array($item) || empty($item)) {
                 return [
                     "error" => true,
                     "message" => "Item não encontrado"
                 ];
             }
 
-            // Formatar resultado
             $itemData = $item[0];
+
+            // Buscar email do admin
+            $admin = $this->supabase->getWhere("login_admin", "id_adm=eq.{$itemData['id_adm']}");
+            $adminEmail = (is_array($admin) && !empty($admin)) ? $admin[0]['email'] : 'N/A';
+
+            // Formatar resultado
             $formatted = [
-                "id_itens" => $itemData["id_itens"],
-                "nome" => $itemData["nome"],
-                "texto" => $itemData["texto"],
-                "foto" => $itemData["foto"],
+                "id_itens" => $itemData["id_itens"] ?? null,
+                "nome" => $itemData["nome"] ?? '',
+                "texto" => $itemData["texto"] ?? '',
+                "foto" => $itemData["foto"] ?? '',
                 "tipo" => $itemData["tipo"] ?? null,
-                "id_adm" => $itemData["id_adm"],
-                "admin_email" => $itemData["login_admin"]["email"] ?? "N/A"
+                "id_adm" => $itemData["id_adm"] ?? null,
+                "admin_email" => $adminEmail
             ];
 
             return [

@@ -45,10 +45,10 @@ class PublicMaterialsController
 
             $supabase = new SupabaseClient();
 
-            // Buscar materiais do tipo específico
+            // Buscar materiais do tipo específico usando o método correto
             $items = $supabase->getWhere(
-                "cadastrar_itens?select=id_itens,nome,texto,foto,tipo",
-                "tipo=eq.{$tipo}"
+                "cadastrar_itens",
+                "tipo=eq.{$tipo}&select=id_itens,nome,texto,foto,tipo"
             );
 
             // Verificar se houve erro
@@ -56,10 +56,17 @@ class PublicMaterialsController
                 throw new \Exception($items['message'] ?? 'Erro ao buscar materiais');
             }
 
-            // Ordenar por nome
-            usort($items, function ($a, $b) {
-                return strcmp($a['nome'], $b['nome']);
-            });
+            // Verificar se retornou array
+            if (!is_array($items)) {
+                $items = [];
+            }
+
+            // Ordenar por nome (apenas se houver itens)
+            if (count($items) > 0) {
+                usort($items, function ($a, $b) {
+                    return strcmp($a['nome'] ?? '', $b['nome'] ?? '');
+                });
+            }
 
             echo json_encode([
                 "error" => false,
@@ -89,12 +96,17 @@ class PublicMaterialsController
         try {
             $supabase = new SupabaseClient();
 
-            // Buscar todos os materiais
-            $items = $supabase->get("cadastrar_itens?select=id_itens,nome,texto,foto,tipo");
+            // Buscar todos os materiais usando o método correto
+            $items = $supabase->get("cadastrar_itens");
 
             // Verificar se houve erro
             if (isset($items['error']) && $items['error'] === true) {
                 throw new \Exception($items['message'] ?? 'Erro ao buscar materiais');
+            }
+
+            // Verificar se retornou array
+            if (!is_array($items)) {
+                $items = [];
             }
 
             // Agrupar por tipo
@@ -105,6 +117,8 @@ class PublicMaterialsController
             ];
 
             foreach ($items as $item) {
+                if (!is_array($item)) continue;
+
                 $tipo = $item['tipo'] ?? 'Outros';
                 if (isset($grouped[$tipo])) {
                     $grouped[$tipo][] = $item;
@@ -113,9 +127,11 @@ class PublicMaterialsController
 
             // Ordenar cada grupo por nome
             foreach ($grouped as &$group) {
-                usort($group, function ($a, $b) {
-                    return strcmp($a['nome'], $b['nome']);
-                });
+                if (count($group) > 0) {
+                    usort($group, function ($a, $b) {
+                        return strcmp($a['nome'] ?? '', $b['nome'] ?? '');
+                    });
+                }
             }
 
             echo json_encode([
@@ -147,11 +163,12 @@ class PublicMaterialsController
             $supabase = new SupabaseClient();
 
             $item = $supabase->getWhere(
-                "cadastrar_itens?select=id_itens,nome,texto,foto,tipo",
-                "id_itens=eq.{$id}"
+                "cadastrar_itens",
+                "id_itens=eq.{$id}&select=id_itens,nome,texto,foto,tipo"
             );
 
-            if (empty($item)) {
+            // Verificar se retornou array válido
+            if (!is_array($item) || empty($item)) {
                 http_response_code(404);
                 echo json_encode([
                     "error" => true,

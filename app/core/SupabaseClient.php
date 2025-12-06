@@ -74,7 +74,7 @@ class SupabaseClient
     }
 
     /**
-     * Upload de arquivo para o Supabase Storage
+     * Upload de arquivo para o Supabase Storage (CORRIGIDO - sem cURL)
      */
     public function uploadFile(string $bucket, string $fileName, string $filePath): array
     {
@@ -90,58 +90,145 @@ class SupabaseClient
                 ];
             }
 
-            // Detectar o tipo MIME
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            $mimeType = finfo_file($finfo, $filePath);
-            finfo_close($finfo);
+            // Detectar o tipo MIME (fallback se fileinfo não estiver disponível)
+            $mimeType = 'application/octet-stream';
 
-            // Headers corretos para upload
-            $headers = [
-                "apikey: {$this->apiKey}",
-                "Authorization: Bearer {$this->apiKey}",
-                "Content-Type: {$mimeType}",
-                "Content-Length: " . strlen($fileContent)
-            ];
-
-            // Usar cURL para melhor controle
-            $ch = curl_init($this->url . $endpoint);
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $fileContent);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-
-            $response = curl_exec($ch);
-            $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-
-            if (curl_errno($ch)) {
-                $error = curl_error($ch);
-                curl_close($ch);
-                return [
-                    "success" => false,
-                    "message" => "Erro cURL: {$error}"
-                ];
-            }
-
-            curl_close($ch);
-
-            // Verificar resposta
-            if ($httpCode >= 200 && $httpCode < 300) {
-                return [
-                    "success" => true,
-                    "response" => json_decode($response, true),
-                    "message" => "Upload realizado com sucesso"
-                ];
+            if (function_exists('mime_content_type')) {
+                $mimeType = mime_content_type($filePath);
+            } elseif (function_exists('finfo_open')) {
+                $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                $mimeType = finfo_file($finfo, $filePath);
+                finfo_close($finfo);
             } else {
-                return [
-                    "success" => false,
-                    "message" => "Erro HTTP {$httpCode}: {$response}"
+                // Fallback baseado na extensão
+                $extension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+                $mimeTypes = [
+                    'jpg' => 'image/jpeg',
+                    'jpeg' => 'image/jpeg',
+                    'png' => 'image/png',
+                    'gif' => 'image/gif',
+                    'webp' => 'image/webp'
                 ];
+                $mimeType = $mimeTypes[$extension] ?? 'application/octet-stream';
             }
+
+            // Tentar cURL primeiro, se disponível
+            if (function_exists('curl_init')) {
+                return $this->uploadWithCurl($endpoint, $fileContent, $mimeType);
+            }
+
+            // Fallback: usar file_get_contents com stream context
+            return $this->uploadWithFileGetContents($endpoint, $fileContent, $mimeType);
         } catch (\Exception $e) {
             return [
                 "success" => false,
                 "message" => "Exceção: " . $e->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * Upload usando cURL (se disponível)
+     */
+    private function uploadWithCurl(string $endpoint, string $fileContent, string $mimeType): array
+    {
+        $headers = [
+            "apikey: {$this->apiKey}",
+            "Authorization: Bearer {$this->apiKey}",
+            "Content-Type: {$mimeType}",
+            "Content-Length: " . strlen($fileContent)
+        ];
+
+        $ch = curl_init($this->url . $endpoint);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fileContent);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        if (curl_errno($ch)) {
+            $error = curl_error($ch);
+            curl_close($ch);
+            return [
+                "success" => false,
+                "message" => "Erro cURL: {$error}"
+            ];
+        }
+
+        curl_close($ch);
+
+        if ($httpCode >= 200 && $httpCode < 300) {
+            return [
+                "success" => true,
+                "response" => json_decode($response, true),
+                "message" => "Upload realizado com sucesso"
+            ];
+        } else {
+            return [
+                "success" => false,
+                "message" => "Erro HTTP {$httpCode}: {$response}"
+            ];
+        }
+    }
+
+    /**
+     * Upload usando file_get_contents (fallback)
+     */
+    private function uploadWithFileGetContents(string $endpoint, string $fileContent, string $mimeType): array
+    {
+        $headers = "apikey: {$this->apiKey}\r\n" .
+            "Authorization: Bearer {$this->apiKey}\r\n" .
+            "Content-Type: {$mimeType}\r\n" .
+            "Content-Length: " . strlen($fileContent) . "\r\n";
+
+        $options = [
+            "http" => [
+                "header"  => $headers,
+                "method"  => "POST",
+                "content" => $fileContent,
+                "ignore_errors" => true
+            ],
+            "ssl" => [
+                "verify_peer" => false,
+                "verify_peer_name" => false
+            ]
+        ];
+
+        $context = stream_context_create($options);
+        $response = @file_get_contents($this->url . $endpoint, false, $context);
+
+        if ($response === false) {
+            $error = error_get_last();
+            return [
+                "success" => false,
+                "message" => "Erro no upload: " . ($error['message'] ?? 'Erro desconhecido')
+            ];
+        }
+
+        // Verificar o código HTTP da resposta
+        $httpCode = 200;
+        if (isset($http_response_header)) {
+            foreach ($http_response_header as $header) {
+                if (preg_match('/^HTTP\/\d\.\d\s+(\d+)/', $header, $matches)) {
+                    $httpCode = intval($matches[1]);
+                    break;
+                }
+            }
+        }
+
+        if ($httpCode >= 200 && $httpCode < 300) {
+            return [
+                "success" => true,
+                "response" => json_decode($response, true),
+                "message" => "Upload realizado com sucesso"
+            ];
+        } else {
+            return [
+                "success" => false,
+                "message" => "Erro HTTP {$httpCode}: {$response}"
             ];
         }
     }

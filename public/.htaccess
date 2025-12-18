@@ -1,7 +1,17 @@
-RewriteEngine On
-RewriteBase /grupo_j.eldorado/public
-
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-RewriteRule ^ index.php [QSA,L]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    # Define o diretório base
+    RewriteBase /grupo_j.eldorado/public/
+    
+    # Permite acesso a arquivos que realmente existem (incluindo .php, .css, .js, imagens)
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteRule ^ - [L]
+    
+    # Permite acesso a diretórios que realmente existem
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+    
+    # Tudo mais vai para index.php
+    RewriteRule ^ index.php [L]
+</IfModule>

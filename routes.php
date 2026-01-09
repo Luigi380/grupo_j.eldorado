@@ -6,7 +6,7 @@ use App\Controllers\ItemsController;
 use App\Controllers\ViewController;
 use App\Controllers\PublicMaterialsController;
 
-$router = new Router('/grupo_j.eldorado');
+$router = new Router('');
 
 //View Usuário
 $router->get('/', [ViewController::class, 'index']);

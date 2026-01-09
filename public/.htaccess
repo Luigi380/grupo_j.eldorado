@@ -2,7 +2,7 @@
     RewriteEngine On
     
     # Define o diretório base
-    RewriteBase /grupo_j.eldorado/public/
+    RewriteBase /public/
     
     # Permite acesso a arquivos que realmente existem (incluindo .php, .css, .js, imagens)
     RewriteCond %{REQUEST_FILENAME} -f

@@ -98,7 +98,7 @@
 }
 
 .first{
-    background: url("/grupo_j.eldorado/public/img/banner/banner1marmoraria.png") no-repeat center;
+    background: url("/public/img/banner/banner1marmoraria.png") no-repeat center;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -107,7 +107,7 @@
 }
 
 .second{
-    background: url("/grupo_j.eldorado/public/img/banner/banner2blur.png") no-repeat center;
+    background: url("/public/img/banner/banner2blur.png") no-repeat center;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -116,7 +116,7 @@
 }
 
 .third{
-    background: url("/grupo_j.eldorado/public/img/banner/banner3marmoraria.png") no-repeat center;
+    background: url("/public/img/banner/banner3marmoraria.png") no-repeat center;
     background-size: cover;
     display: flex;
     justify-content: center;
@@ -125,7 +125,7 @@
 }
 
 .four{
-    background: url("/grupo_j.eldorado/public/img/banner/banner4marmorariablur.png") no-repeat center;
+    background: url("/public/img/banner/banner4marmorariablur.png") no-repeat center;
     background-size: cover;
     display: flex;
     justify-content: center;

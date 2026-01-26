@@ -124,17 +124,6 @@ header img {
   margin-left: 2%;
 }
 
-/* CARROSSEL DE IMAGENS*/
-
-.carrossel_placeholder{
-  width: 100%;
-  height: 614px;
-  background-color: #e0e0e0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 /* SEÇÃO DE MATERIAIS*/
 
 .section_materials  {

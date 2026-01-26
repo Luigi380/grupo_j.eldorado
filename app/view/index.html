@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
@@ -6,6 +6,10 @@
     <title>Marmoraria J.Eldorado</title>
     <link rel="stylesheet" href="/grupo_j.eldorado/public/css/style.css" />
     <link rel="stylesheet" href="/grupo_j.eldorado/public/css/font.css" />
+    <link
+      rel="stylesheet"
+      href="/grupo_j.eldorado/public/css/home/slider.css"
+    />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
@@ -18,6 +22,7 @@
       src="/grupo_j.eldorado/public/js/home/home_animation_scrool.js"
       defer
     ></script>
+    <script src="/grupo_j.eldorado/public/js/home/slider.js" defer></script>
   </head>
   <body>
     <!-- header (incluído inline para versão estática) -->
@@ -46,7 +51,66 @@
     </header>
 
     <!-- AREA DO CARROSSEL DE IMAGENS -->
-    <section class="carrossel_placeholder"></section>
+    <!-- <section class="foco">
+      <div class="cointainer">
+        <h1>Acabamento que faz a diferença</h1>
+        <a href="ultimos-trabalhos" class="botao">Ver mais</a>
+      </div>
+    </section> -->
+
+    <section class="slider">
+      <div class="slides">
+        <!-- Radio Buttons -->
+        <input type="radio" name="radio-btn" id="radio1" />
+        <input type="radio" name="radio-btn" id="radio2" />
+        <input type="radio" name="radio-btn" id="radio3" />
+        <input type="radio" name="radio-btn" id="radio4" />
+
+        <!-- Slides images -->
+        <div class="slide first">
+          <div class="slide-content">
+            <h1>Acabamento que faz a diferença</h1>
+            <a href="#" class="botao">Ver mais</a>
+          </div>
+        </div>
+
+        <div class="slide second">
+          <div class="slide-content">
+            <h1>Transforme seu espaço hoje</h1>
+            <a href="#" class="botao">Ver mais</a>
+          </div>
+        </div>
+
+        <div class="slide third">
+          <div class="slide-content">
+            <h1>Pedras naturais, respeito ao meio ambiente</h1>
+            <a href="#" class="botao">Ver mais</a>
+          </div>
+        </div>
+
+        <div class="slide four">
+          <div class="slide-content">
+            <h1></h1>
+            <a href="#" class="botao">Ver mais</a>
+          </div>
+        </div>
+
+        <!-- Navigation auto -->
+        <div class="navigation-auto">
+          <div class="auto-btn1"></div>
+          <div class="auto-btn2"></div>
+          <div class="auto-btn3"></div>
+          <div class="auto-btn4"></div>
+        </div>
+      </div>
+
+      <div class="manual-navigation">
+        <label for="radio1" class="manual-btn"></label>
+        <label for="radio2" class="manual-btn"></label>
+        <label for="radio3" class="manual-btn"></label>
+        <label for="radio4" class="manual-btn"></label>
+      </div>
+    </section>
 
     <!-- Area de  materiais-->
     <section id="materiais" class="section_materials">
